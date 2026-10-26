@@ -1,8 +1,7 @@
 {
     Filter = {
         Bundles = (
-            "com.zhiliaoapp.musically",
-            "com.zhiliaoapp.musically.VideoBroadcastExtension1"
+            "com.zhiliaoapp.musically"
         );
     };
 }

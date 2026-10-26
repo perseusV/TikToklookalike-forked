@@ -12,14 +12,15 @@ static const void *kPRPButtonKey = &kPRPButtonKey;
 static const void *kPRPTargetKey = &kPRPTargetKey;
 static const void *kPRPPickerDelegateKey = &kPRPPickerDelegateKey;
 static const void *kPRPWindowButtonKey = &kPRPWindowButtonKey;
+static BOOL gPRPCameraPipelineActive = NO;
+static void PRPInstallButton(UIViewController *vc);
 
 static NSString *PRPSharedVideoPath(void) {
-    return @"/var/mobile/Media/PrerecordedLiveUI/selected-video.mov";
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/TikTokFakeLiveCam/selected.mov"];
 }
 
 static NSString *PRPPrivateVideoPath(void) {
-    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"PrerecordedLiveUI"];
-    return [dir stringByAppendingPathComponent:@"selected-video.mov"];
+    return PRPSharedVideoPath();
 }
 
 static NSString * const kPRPScaleModeKey = @"PrerecordedLiveUI.scaleMode";
@@ -58,10 +59,12 @@ static BOOL PRPStoreVideoData(NSData *data, NSURL **resultURL, NSError **resultE
     NSString *sharedPath = PRPSharedVideoPath();
     NSString *sharedDir = [sharedPath stringByDeletingLastPathComponent];
     [[NSFileManager defaultManager] createDirectoryAtPath:sharedDir withIntermediateDirectories:YES attributes:nil error:nil];
-    [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
-    if (![[NSFileManager defaultManager] copyItemAtPath:privatePath toPath:sharedPath error:&error]) {
-        if (resultError) *resultError = error;
-        return NO;
+    if (![privatePath isEqualToString:sharedPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
+        if (![[NSFileManager defaultManager] copyItemAtPath:privatePath toPath:sharedPath error:&error]) {
+            if (resultError) *resultError = error;
+            return NO;
+        }
     }
     if (resultURL) *resultURL = [NSURL fileURLWithPath:privatePath];
     return YES;
@@ -90,7 +93,7 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
 }
 
 static NSString *PRPSharedAudioPath(void) {
-    return @"/var/mobile/Media/PrerecordedLiveUI/selected-audio.m4a";
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/TikTokFakeLiveCam/selected-audio.m4a"];
 }
 
 static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **resultError) {
@@ -121,6 +124,7 @@ static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
 @property(nonatomic, strong) AVAssetReaderTrackOutput *videoOutput;
 @property(nonatomic, strong) AVAssetReaderOutput *audioOutput;
 - (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL;
+- (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL targetWidth:(size_t)width targetHeight:(size_t)height pixelFormat:(OSType)pixelFormat;
 - (CMSampleBufferRef)nextVideoBufferForTime:(CMTime)time;
 - (CMSampleBufferRef)nextAudioBufferForTime:(CMTime)time;
 @end
@@ -128,6 +132,10 @@ static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
 @implementation PRPAssetPump
 
 - (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL {
+    return [self startWithURL:url audioURL:audioURL targetWidth:1280 targetHeight:720 pixelFormat:kCVPixelFormatType_32BGRA];
+}
+
+- (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL targetWidth:(size_t)width targetHeight:(size_t)height pixelFormat:(OSType)pixelFormat {
     self.url = url;
     self.audioURL = audioURL;
     AVURLAsset *videoAsset = [AVURLAsset URLAssetWithURL:url options:nil];
@@ -161,10 +169,10 @@ static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
     NSString *scalingMode = PRPScaleMode();
     NSString *avScalingMode = [scalingMode isEqualToString:@"fill"] ? AVVideoScalingModeResizeAspectFill : ([scalingMode isEqualToString:@"stretch"] ? AVVideoScalingModeResize : AVVideoScalingModeResizeAspect);
     NSDictionary *videoSettings = @{
-        (id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+        (id)kCVPixelBufferPixelFormatTypeKey: @(pixelFormat),
         AVVideoScalingModeKey: avScalingMode,
-        AVVideoWidthKey: @1280,
-        AVVideoHeightKey: @720
+        AVVideoWidthKey: @(width),
+        AVVideoHeightKey: @(height)
     };
     self.videoOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTracks.firstObject outputSettings:videoSettings];
     self.videoOutput.alwaysCopiesSampleData = NO;
@@ -226,6 +234,56 @@ static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
 @end
 
 static PRPAssetPump *gPRPAssetPump;
+static const void *kPRPCaptureProxyKey = &kPRPCaptureProxyKey;
+
+@interface PRPCaptureDelegateProxy : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
+@property(nonatomic, strong) id<AVCaptureVideoDataOutputSampleBufferDelegate> originalDelegate;
+@property(nonatomic, strong) dispatch_queue_t queue;
+@end
+
+@implementation PRPCaptureDelegateProxy
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    id<AVCaptureVideoDataOutputSampleBufferDelegate> delegate = self.originalDelegate;
+    if (!delegate) return;
+    if (!gPRPAssetPump) {
+        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        if (pixelBuffer) {
+            size_t width = CVPixelBufferGetWidth(pixelBuffer);
+            size_t height = CVPixelBufferGetHeight(pixelBuffer);
+            OSType format = CVPixelBufferGetPixelFormatType(pixelBuffer);
+            NSURL *url = [NSURL fileURLWithPath:PRPSharedVideoPath()];
+            NSURL *audioURL = [NSURL fileURLWithPath:PRPSharedAudioPath()];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:audioURL.path]) audioURL = nil;
+            if ([[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+                gPRPAssetPump = [PRPAssetPump new];
+                if (![gPRPAssetPump startWithURL:url audioURL:audioURL targetWidth:width targetHeight:height pixelFormat:format]) gPRPAssetPump = nil;
+                else NSLog(@"[PrerecordedLiveUI] camera delegate source active target=%zux%zu fourcc=%u", width, height, format);
+            } else {
+                NSLog(@"[PrerecordedLiveUI] camera delegate source missing at %@", url.path);
+            }
+        }
+    }
+    CMSampleBufferRef replacement = gPRPAssetPump ? [gPRPAssetPump nextVideoBufferForTime:CMSampleBufferGetPresentationTimeStamp(sampleBuffer)] : NULL;
+    if (replacement) {
+        static NSUInteger sampleCount = 0;
+        sampleCount++;
+        if ((sampleCount % 30) == 0) NSLog(@"[PrerecordedLiveUI] AVCapture replacement sample #%lu", (unsigned long)sampleCount);
+        [delegate captureOutput:output didOutputSampleBuffer:replacement fromConnection:connection];
+        CFRelease(replacement);
+    } else {
+        [delegate captureOutput:output didOutputSampleBuffer:sampleBuffer fromConnection:connection];
+    }
+}
+
+- (void)captureOutput:(AVCaptureOutput *)output didDropSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    id<AVCaptureVideoDataOutputSampleBufferDelegate> delegate = self.originalDelegate;
+    if ([delegate respondsToSelector:@selector(captureOutput:didDropSampleBuffer:fromConnection:)]) [delegate captureOutput:output didDropSampleBuffer:sampleBuffer fromConnection:connection];
+}
+
+- (BOOL)respondsToSelector:(SEL)selector {
+    return [super respondsToSelector:selector] || [self.originalDelegate respondsToSelector:selector];
+}
+@end
 
 static BOOL PRPStringLooksLikeLive(NSString *value) {
     if (value.length == 0) return NO;
@@ -236,24 +294,12 @@ static BOOL PRPStringLooksLikeLive(NSString *value) {
     return NO;
 }
 
-static BOOL PRPViewContainsLiveText(UIView *view) {
-    if ([view isKindOfClass:[UILabel class]] && PRPStringLooksLikeLive(((UILabel *)view).text)) return YES;
-    if ([view isKindOfClass:[UIButton class]]) {
-        NSString *title = [((UIButton *)view) titleForState:UIControlStateNormal];
-        if (PRPStringLooksLikeLive(title)) return YES;
-    }
-    for (UIView *child in view.subviews) {
-        if (PRPViewContainsLiveText(child)) return YES;
-    }
-    return NO;
-}
-
 static BOOL PRPIsLiveController(UIViewController *vc) {
     NSString *className = NSStringFromClass(vc.class);
     if (PRPStringLooksLikeLive(className)) return YES;
     if (PRPStringLooksLikeLive(vc.title)) return YES;
     if ([vc.navigationItem.title.lowercaseString containsString:@"live"]) return YES;
-    return PRPViewContainsLiveText(vc.view);
+    return NO;
 }
 
 static UIViewController *PRPVisibleController(UIViewController *vc) {
@@ -282,6 +328,7 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
         return;
     }
     NSItemProvider *provider = result.itemProvider;
+    [[NSFileManager defaultManager] removeItemAtPath:PRPSharedVideoPath() error:nil];
     if (![provider hasItemConformingToTypeIdentifier:@"public.movie"]) {
         if (self.completion) self.completion(nil, [NSError errorWithDomain:@"PrerecordedLiveUI" code:2 userInfo:@{NSLocalizedDescriptionKey: @"The selected asset is not a video."}]);
         return;
@@ -503,7 +550,7 @@ static UIButton *PRPFindFloatingButton(UIView *view) {
 }
 
 static void PRPInstallButton(UIViewController *vc) {
-    if (!vc.viewIfLoaded || !PRPIsLiveController(vc)) return;
+    if (!vc.viewIfLoaded || (!PRPIsLiveController(vc) && !gPRPCameraPipelineActive)) return;
     if (objc_getAssociatedObject(vc, kPRPButtonKey)) return;
     UIWindow *window = vc.view.window;
     UIButton *existing = window ? (UIButton *)objc_getAssociatedObject(window, kPRPWindowButtonKey) : nil;
@@ -553,6 +600,36 @@ static void PRPInstallButton(UIViewController *vc) {
     if (window) objc_setAssociatedObject(window, kPRPWindowButtonKey, button, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSLog(@"[PrerecordedLiveUI] installed button on %@", NSStringFromClass(vc.class));
 }
+
+%hook AVCaptureVideoDataOutput
+
+- (void)setSampleBufferDelegate:(id<AVCaptureVideoDataOutputSampleBufferDelegate>)delegate queue:(dispatch_queue_t)queue {
+    if (delegate && ![delegate isKindOfClass:[PRPCaptureDelegateProxy class]]) {
+        gPRPCameraPipelineActive = YES;
+        PRPCaptureDelegateProxy *proxy = [PRPCaptureDelegateProxy new];
+        proxy.originalDelegate = delegate;
+        proxy.queue = queue;
+        objc_setAssociatedObject(self, kPRPCaptureProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        NSLog(@"[PrerecordedLiveUI] wrapped AVCaptureVideoDataOutput delegate %@", NSStringFromClass(delegate.class));
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+                if (scene.activationState != UISceneActivationStateForegroundActive) continue;
+                if (![scene isKindOfClass:[UIWindowScene class]]) continue;
+                for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+                    if (!window.isKeyWindow || !window.rootViewController) continue;
+                    PRPInstallButton(PRPVisibleController(window.rootViewController));
+                    break;
+                }
+            }
+        });
+        %orig(proxy, queue);
+        return;
+    }
+    if (!delegate) gPRPCameraPipelineActive = NO;
+    %orig(delegate, queue);
+}
+
+%end
 
 %hook SampleHandler
 

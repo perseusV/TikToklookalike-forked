@@ -1,42 +1,71 @@
-# PrerecordedLiveUI
+# PrerecordedLiveUI 0.2.0
 
-This package now contains two parts:
+This build pivots from the earlier ReplayKit-only experiment to the camera path used by the supplied working `TikTokFakeLiveCam` package.
 
-1. A small, draggable 48×48 LIVE-screen video icon that opens the Photos video picker.
-2. An experimental ReplayKit extension hook that attempts to substitute the selected movie's video and app-audio sample buffers into `SampleHandler` before TikTok's existing broadcast encoder.
+## Reference package finding
 
-The tweak is filtered into both:
+Static analysis of `com.mohamedjj.tiktokfakelivecam_1.0.0-1_iphoneos-arm64.deb` found:
+
+- Its tweak filter targets only `com.zhiliaoapp.musically`.
+- It wraps `AVCaptureVideoDataOutput`'s sample-buffer delegate.
+- Its proxy forwards `captureOutput:didOutputSampleBuffer:fromConnection:` to TikTok with a replacement video buffer.
+- It uses `AVAssetReader`/`AVAssetReaderTrackOutput` and matches the incoming camera pixel format and dimensions.
+- It reads `selected.mov` from `Documents/TikTokFakeLiveCam` inside TikTok's own data container.
+- It does not replace ReplayKit `SampleHandler` buffers.
+
+That architecture explains why the earlier build could select a file but never affect TikTok's LIVE preview or outgoing camera path.
+
+## Corrected implementation
+
+This package now:
+
+1. Stores the selected video in TikTok's own container:
 
 ```text
-com.zhiliaoapp.musically
-com.zhiliaoapp.musically.VideoBroadcastExtension1
+< TikTok home >/Documents/TikTokFakeLiveCam/selected.mov
 ```
 
-## UI behavior
+2. Removes the previous selected file when a new asset is chosen, so a failed replacement cannot silently leave the old video active.
+3. Injects into TikTok's main process only.
+4. Wraps each `AVCaptureVideoDataOutput` delegate when TikTok installs it.
+5. Detects the incoming camera width, height, and pixel format.
+6. Creates an AVAssetReader output matching those values.
+7. Rewrites the prerecorded frame timestamp to the live camera callback timestamp.
+8. Calls TikTok's original camera delegate with the replacement buffer.
+9. Places the floating control only when the camera pipeline is active, avoiding message screens.
 
-The floating icon can be dragged inside the safe area and remembers its position. Only one icon is retained per TikTok window, even when nested LIVE controllers appear. Tapping it selects one video. The picker first tries a temporary file URL and falls back to the provider's data representation when Photos returns a stale or nonexistent URL. The result is stored in the app cache plus the jailbreak-shared path:
+The earlier settings menu, scaling preview, loop control, custom local Music-library track, and relative video-volume control remain in the source. The custom audio track is composed into the reader when available.
+
+## Device logs
+
+Use SSH or a terminal app on the device:
+
+```sh
+log stream --style compact --level debug \\
+  --predicate 'eventMessage CONTAINS[c] "PrerecordedLiveUI"'
+```
+
+Expected evidence for the corrected path:
 
 ```text
-/var/mobile/Media/PrerecordedLiveUI/selected-video.mov
+wrapped AVCaptureVideoDataOutput delegate ...
+camera delegate source active target=... fourcc=...
+AVCapture replacement sample #30
+AVCapture replacement sample #60
 ```
 
-Long-press the floating icon for **Prerecorded Stream Settings**. The menu persists:
+These messages prove that the camera delegate is receiving replacement buffers. Verify the final outgoing stream from another account/device; local logs cannot prove what TikTok's server accepted.
 
-- **Scaling:** cycles Fit, Fill, and Stretch. The chosen mode is passed to the AVAssetReader video output.
-- **Loop:** toggles looping. When enabled, the asset reader restarts at end-of-file; when disabled, the original sample path resumes after the asset ends.
-- **Volume:** cycles 0%, 50%, 100%, 150%, and 200%. The selected value is applied through an AVAudioMix before app-audio buffers are handed to SampleHandler.
-- **Preview current scaling:** opens the selected video in an AVPlayer preview using the current Fit, Fill, or Stretch mode.
-- **Choose music audio track:** opens the device MediaPlayer library and exports a locally available, non-DRM track to `selected-audio.m4a`. That track replaces the video's original audio on the next broadcast.
+## Install
 
-Settings are applied when the next broadcast starts.
+Remove the prior package, then install this version:
 
-The video volume is independent of the streamer's microphone path, so setting it to 0–50% makes the prerecorded audio quieter relative to the streamer. Automatic ducking that reacts to speech requires microphone RMS/PCM DSP inside the extension and is not claimed by this build.
+```sh
+dpkg -r com.manus.prerecordedliveui
+dpkg -i com.manus.projecttiky-reference-camera_0.2.0-2+debug_iphoneos-arm64.deb
+```
 
-## Experimental pipeline behavior
-
-When the broadcast extension receives `broadcastStartedWithSetupInfo:`, the tweak opens the shared movie with `AVAssetReader`. During `processSampleBuffer:withType:` it attempts to replace video and `RPSampleBufferTypeAudioApp` buffers, preserving the original callback presentation timestamps through `CMSampleBufferCreateCopyWithNewTiming`. The original SampleHandler is then called with the replacement buffer.
-
-This is not yet device-verified. It may fail if the extension sandbox cannot read the shared path, if the source audio format does not match TikTok's encoder, if the `SampleHandler` implementation differs at runtime, or if the app expects additional metadata/transport state.
+Respring or restart the injection framework, relaunch TikTok, enter the camera-based LIVE screen, and select the video there.
 
 ## Build
 
@@ -45,22 +74,4 @@ export THEOS=/home/ubuntu/workspace/upstream/theos
 ./build.sh
 ```
 
-The package is rootless, arm64, and targets iOS 15+.
-
-## Required device logs
-
-After selecting a video and starting LIVE, collect:
-
-```sh
-log stream --level debug --predicate 'eventMessage CONTAINS[c] "PrerecordedLiveUI"'
-```
-
-Successful pipeline evidence would include:
-
-```text
-asset pump started
-replacing video sample at ...
-replacing app audio sample at ...
-```
-
-Absence of `asset pump started` means the extension cannot see the shared file or did not enter the expected callback. Presence of replacement logs does not alone prove the remote stream contains the prerecorded media; that still requires device-side observation.
+Rootless arm64 package, target iOS 15+.
