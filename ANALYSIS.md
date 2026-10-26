@@ -62,7 +62,4 @@ The archive contains:
 An OpenSSL check using an empty password could not parse it (`Mac verify error: invalid password?`). Its contents therefore remain unverified. The filename suggests it may contain private-key material, but this inspection did **not** establish what it contains. Treat it as potentially sensitive. The report intentionally excludes its contents.
 
 No `embedded.mobileprovision` file was found. Code-resource signature files are present, but the app's code signature was not cryptographically verified; static inspection does not establish that the decrypted package is installable or signature-valid.
-
 ## Limitations
-
-This was static inspection of ZIP structure, plist metadata, Mach-O headers, and privacy manifests. The app was not installed or executed; no dynamic traffic, behavior, malware, or vulnerability assessment was performed. No source project was present in the archive. The maintainer's ownership and distribution authorization statement has not been independently verified.
