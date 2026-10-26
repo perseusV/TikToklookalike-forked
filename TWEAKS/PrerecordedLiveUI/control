@@ -1,0 +1,9 @@
+Package: com.manus.prerecordedliveui
+Name: Prerecorded Live UI
+Version: 0.1.0
+Architecture: iphoneos-arm64
+Description: Adds a Prerecorded Video control to detected TikTok LIVE screens
+Maintainer: Manus
+Author: Manus
+Section: Tweaks
+Depends: firmware (>= 15.0)
