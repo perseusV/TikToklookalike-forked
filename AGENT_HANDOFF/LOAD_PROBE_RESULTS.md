@@ -13,7 +13,7 @@ Package: com.manus.tiktokloadprobe
 Version: 0.1.0-1+debug
 Architecture: iphoneos-arm64
 Path: packages/com.manus.tiktokloadprobe_0.1.0-1+debug_iphoneos-arm64.deb
-SHA-256: 2ce566edf180b0e484c45be8b6bab53becd66f6e4c3b8a259d5b072ce48f4957
+SHA-256: 1c413f091f31c146ffd21b5bc3909de253e422f925f2ddcbf23ce2c1111c7224
 ```
 
 The package contains:
