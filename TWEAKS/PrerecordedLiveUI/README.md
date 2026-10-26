@@ -1,14 +1,30 @@
 # PrerecordedLiveUI
 
-This is the first actual UI implementation. It is injected into `com.zhiliaoapp.musically` only. When a visible view controller appears whose class, title, navigation title, or visible labels identify it as LIVE, livestream, room, studio, broadcast, or creator-live, the tweak adds a small red circular floating video icon at the top-right safe-area position. The icon is 48×48 points, can be dragged inside the safe area, and remembers its last position.
+This package now contains two parts:
 
-Tapping the button opens the system Photos video picker, copies the selected movie into:
+1. A small, draggable 48×48 LIVE-screen video icon that opens the Photos video picker.
+2. An experimental ReplayKit extension hook that attempts to substitute the selected movie's video and app-audio sample buffers into `SampleHandler` before TikTok's existing broadcast encoder.
+
+The tweak is filtered into both:
 
 ```text
-Library/Caches/PrerecordedLiveUI/selected-video.mov
+com.zhiliaoapp.musically
+com.zhiliaoapp.musically.VideoBroadcastExtension1
 ```
 
-and displays a confirmation alert. The selected file is not yet connected to TikTok’s live encoder or ReplayKit extension. That requires the runtime class/selector evidence from `PrerecordedPipelineProbe` and is a separate implementation stage.
+## UI behavior
+
+The floating icon can be dragged inside the safe area and remembers its position. Tapping it selects one video and stores it in the app cache plus the jailbreak-shared path:
+
+```text
+/var/mobile/Media/PrerecordedLiveUI/selected-video.mov
+```
+
+## Experimental pipeline behavior
+
+When the broadcast extension receives `broadcastStartedWithSetupInfo:`, the tweak opens the shared movie with `AVAssetReader`. During `processSampleBuffer:withType:` it attempts to replace video and `RPSampleBufferTypeAudioApp` buffers, preserving the original callback presentation timestamps through `CMSampleBufferCreateCopyWithNewTiming`. The original SampleHandler is then called with the replacement buffer.
+
+This is not yet device-verified. It may fail if the extension sandbox cannot read the shared path, if the source audio format does not match TikTok's encoder, if the `SampleHandler` implementation differs at runtime, or if the app expects additional metadata/transport state.
 
 ## Build
 
@@ -19,6 +35,20 @@ export THEOS=/home/ubuntu/workspace/upstream/theos
 
 The package is rootless, arm64, and targets iOS 15+.
 
-## Important limitation
+## Required device logs
 
-The LIVE controller’s concrete class name is not available from the supplied static artifact because the relevant implementation is in the large MusicallyCore binary and may be dynamically constructed. The implementation therefore uses conservative runtime detection rather than claiming a statically confirmed controller hook. If the button does not appear, collect a screenshot and the `[PrerecordedLiveUI]` log lines; the detection predicate can then be narrowed to the actual controller.
+After selecting a video and starting LIVE, collect:
+
+```sh
+log stream --level debug --predicate 'eventMessage CONTAINS[c] "PrerecordedLiveUI"'
+```
+
+Successful pipeline evidence would include:
+
+```text
+asset pump started
+replacing video sample at ...
+replacing app audio sample at ...
+```
+
+Absence of `asset pump started` means the extension cannot see the shared file or did not enter the expected callback. Presence of replacement logs does not alone prove the remote stream contains the prerecorded media; that still requires device-side observation.

@@ -1,11 +1,101 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <PhotosUI/PhotosUI.h>
+#import <AVFoundation/AVFoundation.h>
+#import <ReplayKit/ReplayKit.h>
+#import <CoreMedia/CoreMedia.h>
 #import <objc/runtime.h>
 
 static const void *kPRPButtonKey = &kPRPButtonKey;
 static const void *kPRPTargetKey = &kPRPTargetKey;
 static const void *kPRPPickerDelegateKey = &kPRPPickerDelegateKey;
+
+static NSString *PRPSharedVideoPath(void) {
+    return @"/var/mobile/Media/PrerecordedLiveUI/selected-video.mov";
+}
+
+@interface PRPAssetPump : NSObject
+@property(nonatomic, strong) NSURL *url;
+@property(nonatomic, strong) AVAssetReader *reader;
+@property(nonatomic, strong) AVAssetReaderTrackOutput *videoOutput;
+@property(nonatomic, strong) AVAssetReaderTrackOutput *audioOutput;
+- (BOOL)startWithURL:(NSURL *)url;
+- (CMSampleBufferRef)nextVideoBufferForTime:(CMTime)time;
+- (CMSampleBufferRef)nextAudioBufferForTime:(CMTime)time;
+@end
+
+@implementation PRPAssetPump
+
+- (BOOL)startWithURL:(NSURL *)url {
+    self.url = url;
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+    NSArray<AVAssetTrack *> *videoTracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+    NSArray<AVAssetTrack *> *audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
+    if (videoTracks.count == 0) {
+        NSLog(@"[PrerecordedLiveUI] asset has no video track: %@", url.path);
+        return NO;
+    }
+    NSError *error = nil;
+    self.reader = [[AVAssetReader alloc] initWithAsset:asset error:&error];
+    if (!self.reader || error) {
+        NSLog(@"[PrerecordedLiveUI] AVAssetReader init failed: %@", error);
+        return NO;
+    }
+    NSDictionary *videoSettings = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
+    self.videoOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTracks.firstObject outputSettings:videoSettings];
+    self.videoOutput.alwaysCopiesSampleData = NO;
+    if ([self.reader canAddOutput:self.videoOutput]) [self.reader addOutput:self.videoOutput];
+    if (audioTracks.count > 0) {
+        NSDictionary *audioSettings = @{
+            AVFormatIDKey: @(kAudioFormatLinearPCM),
+            AVLinearPCMIsFloatKey: @NO,
+            AVLinearPCMBitDepthKey: @16,
+            AVLinearPCMIsBigEndianKey: @NO,
+            AVLinearPCMIsNonInterleaved: @NO,
+            AVSampleRateKey: @44100,
+            AVNumberOfChannelsKey: @2
+        };
+        self.audioOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:audioTracks.firstObject outputSettings:audioSettings];
+        self.audioOutput.alwaysCopiesSampleData = NO;
+        if ([self.reader canAddOutput:self.audioOutput]) [self.reader addOutput:self.audioOutput];
+    }
+    BOOL started = [self.reader startReading];
+    NSLog(@"[PrerecordedLiveUI] asset pump %@ video=%d audio=%d", started ? @"started" : @"failed", self.videoOutput != nil, self.audioOutput != nil);
+    return started;
+}
+
+- (CMSampleBufferRef)copyBuffer:(CMSampleBufferRef)source forTime:(CMTime)time {
+    if (!source) return NULL;
+    CMSampleTimingInfo timing = {kCMTimeInvalid, kCMTimeInvalid, kCMTimeInvalid};
+    if (CMSampleBufferGetSampleTimingInfo(source, 0, &timing) != noErr) return (CMSampleBufferRef)CFRetain(source);
+    timing.presentationTimeStamp = time;
+    timing.decodeTimeStamp = kCMTimeInvalid;
+    CMSampleBufferRef adjusted = NULL;
+    OSStatus status = CMSampleBufferCreateCopyWithNewTiming(kCFAllocatorDefault, source, 1, &timing, &adjusted);
+    return status == noErr ? adjusted : (CMSampleBufferRef)CFRetain(source);
+}
+
+- (CMSampleBufferRef)nextFromOutput:(AVAssetReaderTrackOutput *)output forTime:(CMTime)time {
+    if (!output) return NULL;
+    CMSampleBufferRef source = [output copyNextSampleBuffer];
+    if (!source && self.reader.status == AVAssetReaderStatusCompleted) {
+        if ([self startWithURL:self.url]) source = [output copyNextSampleBuffer];
+    }
+    CMSampleBufferRef adjusted = [self copyBuffer:source forTime:time];
+    if (source) CFRelease(source);
+    return adjusted;
+}
+
+- (CMSampleBufferRef)nextVideoBufferForTime:(CMTime)time {
+    return [self nextFromOutput:self.videoOutput forTime:time];
+}
+
+- (CMSampleBufferRef)nextAudioBufferForTime:(CMTime)time {
+    return [self nextFromOutput:self.audioOutput forTime:time];
+}
+@end
+
+static PRPAssetPump *gPRPAssetPump;
 
 static BOOL PRPStringLooksLikeLive(NSString *value) {
     if (value.length == 0) return NO;
@@ -79,8 +169,15 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
         NSError *copyError = nil;
         BOOL copied = [[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:path] error:&copyError];
+        NSString *sharedDir = [PRPSharedVideoPath() stringByDeletingLastPathComponent];
+        [[NSFileManager defaultManager] createDirectoryAtPath:sharedDir withIntermediateDirectories:YES attributes:nil error:nil];
+        NSString *sharedPath = PRPSharedVideoPath();
+        [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
+        NSError *sharedError = nil;
+        BOOL sharedCopied = [[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:sharedPath] error:&sharedError];
+        if (!sharedCopied && !copyError) copyError = sharedError;
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.completion) self.completion(copied ? [NSURL fileURLWithPath:path] : nil, copied ? nil : copyError);
+            if (self.completion) self.completion(copied && sharedCopied ? [NSURL fileURLWithPath:path] : nil, (copied && sharedCopied) ? nil : copyError);
         });
     }];
 }
@@ -174,6 +271,53 @@ static void PRPInstallButton(UIViewController *vc) {
     objc_setAssociatedObject(vc, kPRPTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSLog(@"[PrerecordedLiveUI] installed button on %@", NSStringFromClass(vc.class));
 }
+
+%hook SampleHandler
+
+- (void)broadcastStartedWithSetupInfo:(NSDictionary *)setupInfo {
+    %orig;
+    @synchronized ([PRPAssetPump class]) {
+        NSURL *url = [NSURL fileURLWithPath:PRPSharedVideoPath()];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+            gPRPAssetPump = [PRPAssetPump new];
+            if (![gPRPAssetPump startWithURL:url]) gPRPAssetPump = nil;
+        } else {
+            NSLog(@"[PrerecordedLiveUI] broadcast started but shared video is missing: %@", url.path);
+        }
+    }
+}
+
+- (void)processSampleBuffer:(CMSampleBufferRef)sampleBuffer withType:(RPSampleBufferType)sampleBufferType {
+    PRPAssetPump *pump = gPRPAssetPump;
+    if (pump && sampleBufferType == RPSampleBufferTypeVideo) {
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        CMSampleBufferRef replacement = [pump nextVideoBufferForTime:pts];
+        if (replacement) {
+            NSLog(@"[PrerecordedLiveUI] replacing video sample at %lld/%d", pts.value, pts.timescale);
+            %orig(replacement, sampleBufferType);
+            CFRelease(replacement);
+            return;
+        }
+    } else if (pump && sampleBufferType == RPSampleBufferTypeAudioApp) {
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        CMSampleBufferRef replacement = [pump nextAudioBufferForTime:pts];
+        if (replacement) {
+            NSLog(@"[PrerecordedLiveUI] replacing app audio sample at %lld/%d", pts.value, pts.timescale);
+            %orig(replacement, sampleBufferType);
+            CFRelease(replacement);
+            return;
+        }
+    }
+    %orig(sampleBuffer, sampleBufferType);
+}
+
+- (void)broadcastFinished {
+    NSLog(@"[PrerecordedLiveUI] broadcast finished");
+    gPRPAssetPump = nil;
+    %orig;
+}
+
+%end
 
 %hook UIViewController
 - (void)viewDidAppear:(BOOL)animated {
