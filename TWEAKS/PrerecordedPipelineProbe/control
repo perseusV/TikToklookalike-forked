@@ -1,0 +1,9 @@
+Package: com.manus.prerecordedpipelineprobe
+Name: Prerecorded Pipeline Probe
+Version: 0.1.0
+Architecture: iphoneos-arm64
+Description: Non-invasive runtime evidence probe for TikTok media and ReplayKit stages
+Maintainer: Manus
+Author: Manus
+Section: Tweaks
+Depends: firmware (>= 15.0)
