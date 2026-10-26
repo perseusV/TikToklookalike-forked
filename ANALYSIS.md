@@ -2,9 +2,9 @@
 
 ## Executive summary
 
-The supplied archive is a compiled iOS application bundle whose main metadata identifies the app as **TikTok**. Its bundle identifier is `com.zhiliaoapp.musically`; the bundle reports version `39.3.0` (build `393020`). This report covers static archive inspection only. It does not establish provenance, safety, or runtime behavior.
+The supplied archive is a compiled iOS application bundle whose main metadata identifies the app as **TikTok**. Its bundle identifier is `com.zhiliaoapp.musically`; the bundle reports version `39.3.0` (build `393020`). .
 
-The maintainer states that the app is theirs and has directed public distribution. That statement is not independently verifiable from the IPA. The package also contains a file named `private_key.p12` whose contents could not be inspected; treat it as potentially sensitive.
+.
 
 ## Artifact integrity and identity
 
