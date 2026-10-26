@@ -1,0 +1,2511 @@
+{
+  "segments": [
+    {
+      "name": "__PAGEZERO",
+      "vmaddr": 0,
+      "vmsize": 4294967296,
+      "fileoff": 0,
+      "filesize": 0
+    },
+    {
+      "name": "__TEXT",
+      "vmaddr": 4294967296,
+      "vmsize": 327680,
+      "fileoff": 0,
+      "filesize": 327680
+    },
+    {
+      "name": "__DATA",
+      "vmaddr": 4295294976,
+      "vmsize": 131072,
+      "fileoff": 327680,
+      "filesize": 114688
+    },
+    {
+      "name": "__RODATA",
+      "vmaddr": 4295426048,
+      "vmsize": 81920,
+      "fileoff": 442368,
+      "filesize": 81920
+    },
+    {
+      "name": "__LINKEDIT",
+      "vmaddr": 4295507968,
+      "vmsize": 131072,
+      "fileoff": 524288,
+      "filesize": 120528
+    }
+  ],
+  "sections": [
+    {
+      "seg": "__TEXT",
+      "name": "__text",
+      "addr": 4294984840,
+      "size": 294632,
+      "off": 17544
+    },
+    {
+      "seg": "__TEXT",
+      "name": "__stubs",
+      "addr": 4295279472,
+      "size": 4404,
+      "off": 312176
+    },
+    {
+      "seg": "__TEXT",
+      "name": "__stub_helper",
+      "addr": 4295283876,
+      "size": 4380,
+      "off": 316580
+    },
+    {
+      "seg": "__TEXT",
+      "name": "__const",
+      "addr": 4295288256,
+      "size": 256,
+      "off": 320960
+    },
+    {
+      "seg": "__TEXT",
+      "name": "__unwind_info",
+      "addr": 4295288512,
+      "size": 6128,
+      "off": 321216
+    },
+    {
+      "seg": "__TEXT",
+      "name": "__eh_frame",
+      "addr": 4295294640,
+      "size": 324,
+      "off": 327344
+    },
+    {
+      "seg": "__DATA",
+      "name": "__got",
+      "addr": 4295294976,
+      "size": 1008,
+      "off": 327680
+    },
+    {
+      "seg": "__DATA",
+      "name": "__la_symbol_ptr",
+      "addr": 4295295984,
+      "size": 2936,
+      "off": 328688
+    },
+    {
+      "seg": "__DATA",
+      "name": "__mod_init_func",
+      "addr": 4295298920,
+      "size": 8,
+      "off": 331624
+    },
+    {
+      "seg": "__DATA",
+      "name": "__const",
+      "addr": 4295298928,
+      "size": 7256,
+      "off": 331632
+    },
+    {
+      "seg": "__DATA",
+      "name": "__cfstring",
+      "addr": 4295306184,
+      "size": 11392,
+      "off": 338888
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_classlist",
+      "addr": 4295317576,
+      "size": 464,
+      "off": 350280
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_nlclslist",
+      "addr": 4295318040,
+      "size": 16,
+      "off": 350744
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_catlist",
+      "addr": 4295318056,
+      "size": 88,
+      "off": 350760
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_protolist",
+      "addr": 4295318144,
+      "size": 80,
+      "off": 350848
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_imageinfo",
+      "addr": 4295318224,
+      "size": 8,
+      "off": 350928
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_const",
+      "addr": 4295318232,
+      "size": 58696,
+      "off": 350936
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_selrefs",
+      "addr": 4295376928,
+      "size": 8360,
+      "off": 409632
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_protorefs",
+      "addr": 4295385288,
+      "size": 32,
+      "off": 417992
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_classrefs",
+      "addr": 4295385320,
+      "size": 720,
+      "off": 418024
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_superrefs",
+      "addr": 4295386040,
+      "size": 304,
+      "off": 418744
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_ivar",
+      "addr": 4295386344,
+      "size": 1384,
+      "off": 419048
+    },
+    {
+      "seg": "__DATA",
+      "name": "__objc_data",
+      "addr": 4295387728,
+      "size": 9456,
+      "off": 420432
+    },
+    {
+      "seg": "__DATA",
+      "name": "__data",
+      "addr": 4295397184,
+      "size": 2261,
+      "off": 429888
+    },
+    {
+      "seg": "__DATA",
+      "name": "__swift_hooks",
+      "addr": 4295399448,
+      "size": 184,
+      "off": 432152
+    },
+    {
+      "seg": "__DATA",
+      "name": "__swift51_hooks",
+      "addr": 4295399632,
+      "size": 184,
+      "off": 432336
+    },
+    {
+      "seg": "__DATA",
+      "name": "__s_async_hook",
+      "addr": 4295399816,
+      "size": 400,
+      "off": 432520
+    },
+    {
+      "seg": "__DATA",
+      "name": "__swift56_hooks",
+      "addr": 4295400216,
+      "size": 176,
+      "off": 432920
+    },
+    {
+      "seg": "__DATA",
+      "name": "__bss",
+      "addr": 4295400392,
+      "size": 13728,
+      "off": 0
+    },
+    {
+      "seg": "__DATA",
+      "name": "__common",
+      "addr": 4295414120,
+      "size": 3136,
+      "off": 0
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__objc_methname",
+      "addr": 4295426048,
+      "size": 43036,
+      "off": 442368
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__cstring",
+      "addr": 4295469084,
+      "size": 17691,
+      "off": 485404
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__objc_classname",
+      "addr": 4295486775,
+      "size": 1805,
+      "off": 503095
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__objc_methtype",
+      "addr": 4295488580,
+      "size": 6729,
+      "off": 504900
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__const",
+      "addr": 4295495312,
+      "size": 1132,
+      "off": 511632
+    },
+    {
+      "seg": "__RODATA",
+      "name": "__gcc_except_tab",
+      "addr": 4295496444,
+      "size": 3948,
+      "off": 512764
+    }
+  ],
+  "classes": [
+    {
+      "name": "SampleHandler",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x100004488"
+        },
+        {
+          "name": "appGroupId",
+          "types": "@16@0:8",
+          "imp_vm": "0x100004538"
+        }
+      ],
+      "address": "0x100066a50",
+      "super_address": "0x100067090",
+      "super_name": "IESSampleHandler"
+    },
+    {
+      "name": "IESBroadcastAppCommunicator",
+      "methods": [
+        {
+          "name": "initWithAppGroupIdentifier:socketStyle:",
+          "types": "@32@0:8@16Q24",
+          "imp_vm": "0x1000082ec"
+        },
+        {
+          "name": "closeConnect",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000083a4"
+        },
+        {
+          "name": "isSocketConnected",
+          "types": "B16@0:8",
+          "imp_vm": "0x1000083fc"
+        },
+        {
+          "name": "tellContainerAppEncodedVideoData:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100008460"
+        },
+        {
+          "name": "tellContainerAppAudioBinaryData:length:",
+          "types": "v32@0:8^v16q24",
+          "imp_vm": "0x1000084e4"
+        },
+        {
+          "name": "tellContainerAppVideoFrameData:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100008560"
+        },
+        {
+          "name": "passMessage:forKey:",
+          "types": "v32@0:8@16q24",
+          "imp_vm": "0x1000085e4"
+        },
+        {
+          "name": "listenMessageWithKey:handler:",
+          "types": "v32@0:8q16@?24",
+          "imp_vm": "0x1000087b4"
+        },
+        {
+          "name": "listenEncodedVideoDataFromHost:",
+          "types": "v24@0:8@?16",
+          "imp_vm": "0x100008844"
+        },
+        {
+          "name": "addListener:forKey:",
+          "types": "v32@0:8@16@24",
+          "imp_vm": "0x1000088b0"
+        },
+        {
+          "name": "setupCommunicateCarrier",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000089c8"
+        },
+        {
+          "name": "_socketDowngrade",
+          "types": "v16@0:8",
+          "imp_vm": "0x100008b40"
+        },
+        {
+          "name": "_createNewSocket:",
+          "types": "@24@0:8Q16",
+          "imp_vm": "0x100008b4c"
+        },
+        {
+          "name": "listenServerSocketReadyNotification",
+          "types": "v16@0:8",
+          "imp_vm": "0x100008cb4"
+        },
+        {
+          "name": "connectToServerSocketIfNeed",
+          "types": "v16@0:8",
+          "imp_vm": "0x100008d00"
+        },
+        {
+          "name": "handleListenMessageWithKey:messageInfo:",
+          "types": "v32@0:8@16@24",
+          "imp_vm": "0x100008df4"
+        },
+        {
+          "name": "localSocket:didReceiveData:head:",
+          "types": "v48@0:8@16@24{?=QCCCC}32",
+          "imp_vm": "0x100008ef8"
+        },
+        {
+          "name": "localSocket:didDisconnectedWithReason:",
+          "types": "v32@0:8@16q24",
+          "imp_vm": "0x100009194"
+        },
+        {
+          "name": "socketStyle",
+          "types": "Q16@0:8",
+          "imp_vm": "0x100009218"
+        },
+        {
+          "name": "setSocketStyle:",
+          "types": "v24@0:8Q16",
+          "imp_vm": "0x100009220"
+        },
+        {
+          "name": "appGroupIdentifier",
+          "types": "@16@0:8",
+          "imp_vm": "0x100009228"
+        },
+        {
+          "name": "setAppGroupIdentifier:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100009230"
+        },
+        {
+          "name": "closeByHost",
+          "types": "B16@0:8",
+          "imp_vm": "0x100009238"
+        },
+        {
+          "name": "setCloseByHost:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100009240"
+        },
+        {
+          "name": "clientSocket",
+          "types": "@16@0:8",
+          "imp_vm": "0x100009248"
+        },
+        {
+          "name": "setClientSocket:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100009250"
+        },
+        {
+          "name": "clientSocket2",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000925c"
+        },
+        {
+          "name": "setClientSocket2:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100009264"
+        },
+        {
+          "name": "listenerMap",
+          "types": "@16@0:8",
+          "imp_vm": "0x100009270"
+        },
+        {
+          "name": "setListenerMap:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100009278"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x100009284"
+        }
+      ],
+      "address": "0x100066be0",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESBroadcastLaunchConfig",
+      "methods": [
+        {
+          "name": "initWithGroupId:",
+          "types": "@24@0:8@16",
+          "imp_vm": "0x10000935c"
+        },
+        {
+          "name": "groupId",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000093d0"
+        },
+        {
+          "name": "setGroupId:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000093d8"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000093e0"
+        }
+      ],
+      "address": "0x100066c30",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESBroadcastPerfService",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x100009494"
+        },
+        {
+          "name": "devicePerformance",
+          "types": "@16@0:8",
+          "imp_vm": "0x100009514"
+        },
+        {
+          "name": "usedMemoryInMegabyte",
+          "types": "Q16@0:8",
+          "imp_vm": "0x100009778"
+        },
+        {
+          "name": "cpuUsage",
+          "types": "f16@0:8",
+          "imp_vm": "0x1000097f0"
+        },
+        {
+          "name": "enableBFrame",
+          "types": "B16@0:8",
+          "imp_vm": "0x100009928"
+        },
+        {
+          "name": "setEnableBFrame:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100009930"
+        },
+        {
+          "name": "captureWidth",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009938"
+        },
+        {
+          "name": "setCaptureWidth:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009940"
+        },
+        {
+          "name": "captureHeight",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009948"
+        },
+        {
+          "name": "setCaptureHeight:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009950"
+        },
+        {
+          "name": "captureOrientation",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009958"
+        },
+        {
+          "name": "setCaptureOrientation:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009960"
+        },
+        {
+          "name": "pushWidth",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009968"
+        },
+        {
+          "name": "setPushWidth:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009970"
+        },
+        {
+          "name": "pushHeight",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009978"
+        },
+        {
+          "name": "setPushHeight:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009980"
+        },
+        {
+          "name": "captureFPS",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009988"
+        },
+        {
+          "name": "setCaptureFPS:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009990"
+        },
+        {
+          "name": "processFPS",
+          "types": "q16@0:8",
+          "imp_vm": "0x100009998"
+        },
+        {
+          "name": "setProcessFPS:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099a0"
+        },
+        {
+          "name": "encodeFPS",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099a8"
+        },
+        {
+          "name": "setEncodeFPS:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099b0"
+        },
+        {
+          "name": "encodedBitrate",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099b8"
+        },
+        {
+          "name": "setEncodedBitrate:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099c0"
+        },
+        {
+          "name": "encodeDropCnt",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099c8"
+        },
+        {
+          "name": "setEncodeDropCnt:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099d0"
+        },
+        {
+          "name": "encodeErrorCode",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099d8"
+        },
+        {
+          "name": "setEncodeErrorCode:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099e0"
+        },
+        {
+          "name": "lastAdjustBitrate",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099e8"
+        },
+        {
+          "name": "setLastAdjustBitrate:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000099f0"
+        },
+        {
+          "name": "lastAdjustFPS",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000099f8"
+        },
+        {
+          "name": "setLastAdjustFPS:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100009a00"
+        },
+        {
+          "name": "useNewPerf",
+          "types": "B16@0:8",
+          "imp_vm": "0x100009a08"
+        },
+        {
+          "name": "setUseNewPerf:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100009a10"
+        }
+      ],
+      "address": "0x100066c80",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESBroadcastVideoBufferProcessor",
+      "methods": [
+        {
+          "name": "initWithEncodeParams:appGroupId:",
+          "types": "@32@0:8@16@24",
+          "imp_vm": "0x100009a18"
+        },
+        {
+          "name": "setupVideoRotateToolWithDictionary:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100009f58"
+        },
+        {
+          "name": "setupVideoMixToolsWithConfig:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000a15c"
+        },
+        {
+          "name": "stopProcess",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000a1f8"
+        },
+        {
+          "name": "createBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x10000a244"
+        },
+        {
+          "name": "processPauseBuffer:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x10000a2e4"
+        },
+        {
+          "name": "processVideoSampleBuffer:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x10000a4c0"
+        },
+        {
+          "name": "sendToEncode:pts_ms:",
+          "types": "v32@0:8^{__CVBuffer=}16q24",
+          "imp_vm": "0x10000aa3c"
+        },
+        {
+          "name": "resumeLive",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000ab04"
+        },
+        {
+          "name": "scheduledStableVideoFrame",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000ab6c"
+        },
+        {
+          "name": "encodeVideoPixelBuffer:timestamp:",
+          "types": "v32@0:8^{__CVBuffer=}16q24",
+          "imp_vm": "0x10000ad6c"
+        },
+        {
+          "name": "handleEncodeError:extraBuffer:",
+          "types": "v28@0:8i16^{__CVBuffer=}20",
+          "imp_vm": "0x10000af44"
+        },
+        {
+          "name": "resetEncodeBitrate:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000b180"
+        },
+        {
+          "name": "startEncodeLoop",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000b198"
+        },
+        {
+          "name": "didEncodeData:timestamp:dts:videoFrameType:sourceBuffer:",
+          "types": "v52@0:8@16q24q32i40^{__CVBuffer=}44",
+          "imp_vm": "0x10000b2e4"
+        },
+        {
+          "name": "onEncodeFailed:sourceBuffer:",
+          "types": "v32@0:8Q16^{__CVBuffer=}24",
+          "imp_vm": "0x10000b4a8"
+        },
+        {
+          "name": "releaseSourceBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10000b570"
+        },
+        {
+          "name": "encodePauseImageBuffer:timestamp:",
+          "types": "v48@0:8^{__CVBuffer=}16{?=qiIq}24",
+          "imp_vm": "0x10000b698"
+        },
+        {
+          "name": "setupVideoEncoderWithParams:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000b6c8"
+        },
+        {
+          "name": "currectVideoCodec",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000bcac"
+        },
+        {
+          "name": "runFlushTimer",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000bce8"
+        },
+        {
+          "name": "adjustFPS:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000bee8"
+        },
+        {
+          "name": "cacheLastVideoPixelBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10000bfb4"
+        },
+        {
+          "name": "stopFlushVideoBufferTimer",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000c03c"
+        },
+        {
+          "name": "needDropFrame:",
+          "types": "B24@0:8q16",
+          "imp_vm": "0x10000c0b4"
+        },
+        {
+          "name": "isYUVOutput",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c31c"
+        },
+        {
+          "name": "useYUVFpsAdaptive",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c340"
+        },
+        {
+          "name": "createPool",
+          "types": "^{__CVPixelBufferPool=}16@0:8",
+          "imp_vm": "0x10000c380"
+        },
+        {
+          "name": "usedMemoryMB",
+          "types": "Q16@0:8",
+          "imp_vm": "0x10000c5c8"
+        },
+        {
+          "name": "delegate",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c634"
+        },
+        {
+          "name": "setDelegate:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000c64c"
+        },
+        {
+          "name": "useNewPauseMode",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c658"
+        },
+        {
+          "name": "mixRender",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c660"
+        },
+        {
+          "name": "encodeParam",
+          "types": "{EncoderParam=iiiiiiBBiBBiidBBBiiBifB}16@0:8",
+          "imp_vm": "0x10000c668"
+        },
+        {
+          "name": "setEncodeParam:",
+          "types": "v104@0:8{EncoderParam=iiiiiiBBiBBiidBBBiiBifB}16",
+          "imp_vm": "0x10000c674"
+        },
+        {
+          "name": "rotateInput",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c680"
+        },
+        {
+          "name": "setRotateInput:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000c688"
+        },
+        {
+          "name": "rotateOrientation",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c694"
+        },
+        {
+          "name": "setRotateOrientation:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c69c"
+        },
+        {
+          "name": "flushVideoQueue",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c6a4"
+        },
+        {
+          "name": "setFlushVideoQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000c6ac"
+        },
+        {
+          "name": "flushVideoBufferTimer",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c6b8"
+        },
+        {
+          "name": "setFlushVideoBufferTimer:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000c6c0"
+        },
+        {
+          "name": "lastVideoPixelBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x10000c6cc"
+        },
+        {
+          "name": "setLastVideoPixelBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10000c6d4"
+        },
+        {
+          "name": "metalRender",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c6dc"
+        },
+        {
+          "name": "setMetalRender:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000c6e4"
+        },
+        {
+          "name": "inPauseState",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c6f0"
+        },
+        {
+          "name": "setInPauseState:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c6f8"
+        },
+        {
+          "name": "rotateStrategy",
+          "types": "Q16@0:8",
+          "imp_vm": "0x10000c700"
+        },
+        {
+          "name": "setRotateStrategy:",
+          "types": "v24@0:8Q16",
+          "imp_vm": "0x10000c708"
+        },
+        {
+          "name": "lastVideoFrameTimeStamp",
+          "types": "d16@0:8",
+          "imp_vm": "0x10000c710"
+        },
+        {
+          "name": "setLastVideoFrameTimeStamp:",
+          "types": "v24@0:8d16",
+          "imp_vm": "0x10000c718"
+        },
+        {
+          "name": "lastVideoBufferPaceTime",
+          "types": "d16@0:8",
+          "imp_vm": "0x10000c720"
+        },
+        {
+          "name": "setLastVideoBufferPaceTime:",
+          "types": "v24@0:8d16",
+          "imp_vm": "0x10000c728"
+        },
+        {
+          "name": "lastVideoBufferPushTime",
+          "types": "d16@0:8",
+          "imp_vm": "0x10000c730"
+        },
+        {
+          "name": "setLastVideoBufferPushTime:",
+          "types": "v24@0:8d16",
+          "imp_vm": "0x10000c738"
+        },
+        {
+          "name": "adaptiveFps",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c740"
+        },
+        {
+          "name": "setAdaptiveFps:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c748"
+        },
+        {
+          "name": "fps",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000c750"
+        },
+        {
+          "name": "setFps:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000c758"
+        },
+        {
+          "name": "aheadCnt",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000c760"
+        },
+        {
+          "name": "setAheadCnt:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000c768"
+        },
+        {
+          "name": "bufferPool",
+          "types": "^{__CVPixelBufferPool=}16@0:8",
+          "imp_vm": "0x10000c770"
+        },
+        {
+          "name": "setBufferPool:",
+          "types": "v24@0:8^{__CVPixelBufferPool=}16",
+          "imp_vm": "0x10000c778"
+        },
+        {
+          "name": "videoSize",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x10000c780"
+        },
+        {
+          "name": "setVideoSize:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x10000c788"
+        },
+        {
+          "name": "dualDeviceCamera",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c790"
+        },
+        {
+          "name": "setDualDeviceCamera:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c798"
+        },
+        {
+          "name": "disableMemCtrl",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c7a0"
+        },
+        {
+          "name": "setDisableMemCtrl:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c7a8"
+        },
+        {
+          "name": "memCtrlHigh",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000c7b0"
+        },
+        {
+          "name": "setMemCtrlHigh:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000c7b8"
+        },
+        {
+          "name": "memCtrlMedium",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000c7c0"
+        },
+        {
+          "name": "setMemCtrlMedium:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000c7c8"
+        },
+        {
+          "name": "memCtrlLow",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000c7d0"
+        },
+        {
+          "name": "setMemCtrlLow:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000c7d8"
+        },
+        {
+          "name": "processingPauseBuffer",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000c7e0"
+        },
+        {
+          "name": "setProcessingPauseBuffer:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000c7e8"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000c7f0"
+        },
+        {
+          "name": ".cxx_construct",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000c840"
+        }
+      ],
+      "address": "0x100066cd0",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveBroadcastMetalRender",
+      "methods": [
+        {
+          "name": "initWithHifiMode:rotateStrategy:",
+          "types": "@28@0:8B16Q20",
+          "imp_vm": "0x10000cdd0"
+        },
+        {
+          "name": "setup",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000cee4"
+        },
+        {
+          "name": "renderSampleBuffer:frameBuffer:completion:",
+          "types": "v40@0:8^{opaqueCMSampleBuffer=}16^{__CVBuffer=}24@?32",
+          "imp_vm": "0x10000d060"
+        },
+        {
+          "name": "flushMetalCache",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000d738"
+        },
+        {
+          "name": "renderSampleBuffer:completion:",
+          "types": "v32@0:8^{opaqueCMSampleBuffer=}16@?24",
+          "imp_vm": "0x10000d7d4"
+        },
+        {
+          "name": "createTexture:textureFormat:width:height:plane:",
+          "types": "@56@0:8^{__CVBuffer=}16Q24Q32Q40Q48",
+          "imp_vm": "0x10000de34"
+        },
+        {
+          "name": "buildRGBTexture",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000deb4"
+        },
+        {
+          "name": "releaseRGBTexture",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000e068"
+        },
+        {
+          "name": "isYUVOutput",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000e0bc"
+        },
+        {
+          "name": "needRenderAngle0",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000e0e0"
+        },
+        {
+          "name": "targetSize",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x10000e0ec"
+        },
+        {
+          "name": "setTargetSize:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x10000e0f4"
+        },
+        {
+          "name": "device",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000e0fc"
+        },
+        {
+          "name": "setDevice:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000e104"
+        },
+        {
+          "name": "textureCache",
+          "types": "^{__CVMetalTextureCache=}16@0:8",
+          "imp_vm": "0x10000e110"
+        },
+        {
+          "name": "setTextureCache:",
+          "types": "v24@0:8^{__CVMetalTextureCache=}16",
+          "imp_vm": "0x10000e118"
+        },
+        {
+          "name": "viewportSize",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x10000e120"
+        },
+        {
+          "name": "setViewportSize:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x10000e148"
+        },
+        {
+          "name": "commandQueue",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000e170"
+        },
+        {
+          "name": "setCommandQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000e178"
+        },
+        {
+          "name": "semaphore",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000e184"
+        },
+        {
+          "name": "setSemaphore:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000e18c"
+        },
+        {
+          "name": "queue",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000e198"
+        },
+        {
+          "name": "setQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000e1a0"
+        },
+        {
+          "name": "renderNode",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000e1ac"
+        },
+        {
+          "name": "setRenderNode:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000e1b4"
+        },
+        {
+          "name": "rotatedBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x10000e1c0"
+        },
+        {
+          "name": "setRotatedBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10000e1c8"
+        },
+        {
+          "name": "textureRef",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x10000e1d0"
+        },
+        {
+          "name": "setTextureRef:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10000e1d8"
+        },
+        {
+          "name": "hifiMode",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000e1e0"
+        },
+        {
+          "name": "setHifiMode:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000e1e8"
+        },
+        {
+          "name": "rotateStrategy",
+          "types": "Q16@0:8",
+          "imp_vm": "0x10000e1f0"
+        },
+        {
+          "name": "setRotateStrategy:",
+          "types": "v24@0:8Q16",
+          "imp_vm": "0x10000e1f8"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000e200"
+        }
+      ],
+      "address": "0x100066d20",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveComputeRender",
+      "methods": [
+        {
+          "name": "setup",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000e5cc"
+        },
+        {
+          "name": "updateAngle:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000e7e0"
+        },
+        {
+          "name": "updateMatrix:pixelbufferFmt:pixelbufferMtx:",
+          "types": "v36@0:8q16I24^v28",
+          "imp_vm": "0x10000e888"
+        },
+        {
+          "name": "encode:textureY:textureUV:textureOut:angle:pixelbufferFmt:pixelbufferMtx:",
+          "types": "v68@0:8@16@24@32@40q48I56^v60",
+          "imp_vm": "0x10000ea54"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000ecac"
+        }
+      ],
+      "address": "0x100066d98",
+      "super_address": "0x100066eb0",
+      "super_name": "IESLiveRenderNode"
+    },
+    {
+      "name": "IESLiveLocalSocket",
+      "methods": [
+        {
+          "name": "initWithApplicationGroupIdentifier:connectionIdentifier:",
+          "types": "@32@0:8@16@24",
+          "imp_vm": "0x10000ed2c"
+        },
+        {
+          "name": "dealloc",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000ee40"
+        },
+        {
+          "name": "closeConnect",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000ee90"
+        },
+        {
+          "name": "sendData:head:",
+          "types": "v40@0:8@16{?=QCCCC}24",
+          "imp_vm": "0x10000eea0"
+        },
+        {
+          "name": "sendBinaryData:head:",
+          "types": "v40@0:8^v16{?=QCCCC}24",
+          "imp_vm": "0x10000ef10"
+        },
+        {
+          "name": "setupSocket",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000f0f4"
+        },
+        {
+          "name": "bindSocket",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000f19c"
+        },
+        {
+          "name": "receiveDataFromSocket",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000f2dc"
+        },
+        {
+          "name": "handleReceiveBuffer",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000f4cc"
+        },
+        {
+          "name": "socketPathWithApplicationGroupIdentifier:connectionIdentifier:",
+          "types": "@32@0:8@16@24",
+          "imp_vm": "0x10000f6b8"
+        },
+        {
+          "name": "closeConnectWithReason:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000f7e4"
+        },
+        {
+          "name": "reportTrackWithStatus:extra:",
+          "types": "v32@0:8q16@24",
+          "imp_vm": "0x10000f9b0"
+        },
+        {
+          "name": "sendQueue",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000fa68"
+        },
+        {
+          "name": "receiveQueue",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000faa8"
+        },
+        {
+          "name": "receiveBuffer",
+          "types": "^{?=^vIIIAiB}16@0:8",
+          "imp_vm": "0x10000faec"
+        },
+        {
+          "name": "delegate",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000fb28"
+        },
+        {
+          "name": "setDelegate:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000fb40"
+        },
+        {
+          "name": "maxQueueCount",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000fb4c"
+        },
+        {
+          "name": "setMaxQueueCount:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000fb54"
+        },
+        {
+          "name": "connecting",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000fb5c"
+        },
+        {
+          "name": "setConnecting:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000fb68"
+        },
+        {
+          "name": "socket",
+          "types": "i16@0:8",
+          "imp_vm": "0x10000fb70"
+        },
+        {
+          "name": "setSocket:",
+          "types": "v20@0:8i16",
+          "imp_vm": "0x10000fb78"
+        },
+        {
+          "name": "receiveSocket",
+          "types": "i16@0:8",
+          "imp_vm": "0x10000fb80"
+        },
+        {
+          "name": "setReceiveSocket:",
+          "types": "v20@0:8i16",
+          "imp_vm": "0x10000fb88"
+        },
+        {
+          "name": "working",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000fb90"
+        },
+        {
+          "name": "setWorking:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10000fb9c"
+        },
+        {
+          "name": "currentQueueCount",
+          "types": "q16@0:8",
+          "imp_vm": "0x10000fba4"
+        },
+        {
+          "name": "setCurrentQueueCount:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10000fbac"
+        },
+        {
+          "name": "applicationGroupIdentifier",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000fbb4"
+        },
+        {
+          "name": "setApplicationGroupIdentifier:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000fbbc"
+        },
+        {
+          "name": "connectionIdentifier",
+          "types": "@16@0:8",
+          "imp_vm": "0x10000fbc4"
+        },
+        {
+          "name": "setConnectionIdentifier:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000fbcc"
+        },
+        {
+          "name": "setSendQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000fbd4"
+        },
+        {
+          "name": "setReceiveQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10000fbe0"
+        },
+        {
+          "name": "setReceiveBuffer:",
+          "types": "v24@0:8^{?=^vIIIAiB}16",
+          "imp_vm": "0x10000fbec"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x10000fbf4"
+        }
+      ],
+      "address": "0x100066dc0",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveLocalSocketServer",
+      "methods": [
+        {
+          "name": "acceptClientConnect",
+          "types": "B16@0:8",
+          "imp_vm": "0x10000fc34"
+        }
+      ],
+      "address": "0x100066e38",
+      "super_address": "0x100066dc0",
+      "super_name": "IESLiveLocalSocket"
+    },
+    {
+      "name": "IESLiveLocalSocketClient",
+      "methods": [
+        {
+          "name": "connectSocketWithServerIdentifier:",
+          "types": "B24@0:8@16",
+          "imp_vm": "0x10000fe5c"
+        }
+      ],
+      "address": "0x100066e88",
+      "super_address": "0x100066dc0",
+      "super_name": "IESLiveLocalSocket"
+    },
+    {
+      "name": "IESLiveRenderNode",
+      "methods": [
+        {
+          "name": "initWithDevice:hifiMode:newMatrix:",
+          "types": "@32@0:8@16B24B28",
+          "imp_vm": "0x100010074"
+        },
+        {
+          "name": "setup",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010110"
+        },
+        {
+          "name": "encode:textureY:textureUV:textureOut:angle:pixelbufferFmt:pixelbufferMtx:",
+          "types": "v68@0:8@16@24@32@40q48I56^v60",
+          "imp_vm": "0x100010114"
+        },
+        {
+          "name": "encode:textureY:textureUV:outTextureY:outTextureUV:angle:",
+          "types": "v64@0:8@16@24@32@40@48q56",
+          "imp_vm": "0x100010118"
+        },
+        {
+          "name": "device",
+          "types": "@16@0:8",
+          "imp_vm": "0x10001011c"
+        },
+        {
+          "name": "setDevice:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100010124"
+        },
+        {
+          "name": "curIndex",
+          "types": "q16@0:8",
+          "imp_vm": "0x100010130"
+        },
+        {
+          "name": "setCurIndex:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100010138"
+        },
+        {
+          "name": "angle",
+          "types": "q16@0:8",
+          "imp_vm": "0x100010140"
+        },
+        {
+          "name": "setAngle:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100010148"
+        },
+        {
+          "name": "pixelbufferFmt",
+          "types": "I16@0:8",
+          "imp_vm": "0x100010150"
+        },
+        {
+          "name": "setPixelbufferFmt:",
+          "types": "v20@0:8I16",
+          "imp_vm": "0x100010158"
+        },
+        {
+          "name": "pixelbufferMtx",
+          "types": "^v16@0:8",
+          "imp_vm": "0x100010160"
+        },
+        {
+          "name": "setPixelbufferMtx:",
+          "types": "v24@0:8^v16",
+          "imp_vm": "0x100010168"
+        },
+        {
+          "name": "hifiMode",
+          "types": "B16@0:8",
+          "imp_vm": "0x100010170"
+        },
+        {
+          "name": "newMatrix",
+          "types": "B16@0:8",
+          "imp_vm": "0x100010178"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010180"
+        }
+      ],
+      "address": "0x100066eb0",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveRotateAccelerate",
+      "methods": [
+        {
+          "name": "rotateSampleBufferIfNeed:landscape:",
+          "types": "^{__CVBuffer=}28@0:8^{opaqueCMSampleBuffer=}16B24",
+          "imp_vm": "0x10001018c"
+        },
+        {
+          "name": "rotateBuffer:orient:",
+          "types": "^{__CVBuffer=}28@0:8^{opaqueCMSampleBuffer=}16I24",
+          "imp_vm": "0x100010284"
+        }
+      ],
+      "address": "0x100066f28",
+      "super_address": "0x100066f50",
+      "super_name": "IESLiveRotateBase"
+    },
+    {
+      "name": "IESLiveRotateBase",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000104c8"
+        },
+        {
+          "name": "dealloc",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010588"
+        },
+        {
+          "name": "orientationOfSampleBuffer:",
+          "types": "I24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x1000105ec"
+        },
+        {
+          "name": "releasePool",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010654"
+        },
+        {
+          "name": "rotatedBufferWithWidth:height:",
+          "types": "^{__CVBuffer=}32@0:8Q16Q24",
+          "imp_vm": "0x10001068c"
+        },
+        {
+          "name": "poolWithWidth:height:",
+          "types": "^{__CVPixelBufferPool=}32@0:8Q16Q24",
+          "imp_vm": "0x100010780"
+        },
+        {
+          "name": "rotateSampleBufferIfNeed:landscape:",
+          "types": "^{__CVBuffer=}28@0:8^{opaqueCMSampleBuffer=}16B24",
+          "imp_vm": "0x100010a34"
+        },
+        {
+          "name": "pixelBufferPool",
+          "types": "^{__CVPixelBufferPool=}16@0:8",
+          "imp_vm": "0x100010a3c"
+        },
+        {
+          "name": "setPixelBufferPool:",
+          "types": "v24@0:8^{__CVPixelBufferPool=}16",
+          "imp_vm": "0x100010a44"
+        },
+        {
+          "name": "rotatedBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x100010a4c"
+        },
+        {
+          "name": "setRotatedBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x100010a54"
+        },
+        {
+          "name": "pixelSizeForPool",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x100010a5c"
+        },
+        {
+          "name": "setPixelSizeForPool:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x100010a64"
+        },
+        {
+          "name": "isIPad",
+          "types": "B16@0:8",
+          "imp_vm": "0x100010a6c"
+        },
+        {
+          "name": "setIsIPad:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100010a74"
+        }
+      ],
+      "address": "0x100066f50",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveSampleRotateInput",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x100010aa0"
+        },
+        {
+          "name": "dealloc",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010ae8"
+        },
+        {
+          "name": "rotateSampleBufferIfNeed:landscape:",
+          "types": "^{opaqueCMSampleBuffer=}28@0:8^{opaqueCMSampleBuffer=}16B24",
+          "imp_vm": "0x100010b4c"
+        },
+        {
+          "name": "rotateSampleBufferToLandscape:",
+          "types": "^{opaqueCMSampleBuffer=}24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x100010c98"
+        },
+        {
+          "name": "rotateBuffer:orient:",
+          "types": "^{opaqueCMSampleBuffer=}28@0:8^{opaqueCMSampleBuffer=}16I24",
+          "imp_vm": "0x100010cd8"
+        },
+        {
+          "name": "orientationOfSampleBuffer:",
+          "types": "I24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x100010f6c"
+        },
+        {
+          "name": "releasePool",
+          "types": "v16@0:8",
+          "imp_vm": "0x100010fd4"
+        },
+        {
+          "name": "rotatedBufferWithWidth:height:",
+          "types": "^{__CVBuffer=}32@0:8Q16Q24",
+          "imp_vm": "0x10001100c"
+        },
+        {
+          "name": "poolWithWidth:height:",
+          "types": "^{__CVPixelBufferPool=}32@0:8Q16Q24",
+          "imp_vm": "0x100011100"
+        },
+        {
+          "name": "pixelBufferPool",
+          "types": "^{__CVPixelBufferPool=}16@0:8",
+          "imp_vm": "0x1000113b4"
+        },
+        {
+          "name": "setPixelBufferPool:",
+          "types": "v24@0:8^{__CVPixelBufferPool=}16",
+          "imp_vm": "0x1000113bc"
+        },
+        {
+          "name": "rotatedBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x1000113c4"
+        },
+        {
+          "name": "setRotatedBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x1000113cc"
+        },
+        {
+          "name": "pixelSizeForPool",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x1000113d4"
+        },
+        {
+          "name": "setPixelSizeForPool:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x1000113dc"
+        }
+      ],
+      "address": "0x100066fa0",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESLiveYUVRotation",
+      "methods": [
+        {
+          "name": "setup",
+          "types": "v16@0:8",
+          "imp_vm": "0x100011444"
+        },
+        {
+          "name": "updateAngle:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100011628"
+        },
+        {
+          "name": "encode:textureY:textureUV:outTextureY:outTextureUV:angle:",
+          "types": "v64@0:8@16@24@32@40@48q56",
+          "imp_vm": "0x1000116c4"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000118c8"
+        }
+      ],
+      "address": "0x100067018",
+      "super_address": "0x100066eb0",
+      "super_name": "IESLiveRenderNode"
+    },
+    {
+      "name": "IESSampleBufferUtils",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000119a0"
+        },
+        {
+          "name": "orientationOfSampleBuffer:",
+          "types": "I24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x100011a64"
+        },
+        {
+          "name": "angleFor:width:height:",
+          "types": "q40@0:8^{opaqueCMSampleBuffer=}16Q24Q32",
+          "imp_vm": "0x100011ad0"
+        },
+        {
+          "name": "renderAngle:width:height:",
+          "types": "q40@0:8^{opaqueCMSampleBuffer=}16Q24Q32",
+          "imp_vm": "0x100011c8c"
+        },
+        {
+          "name": "landscape",
+          "types": "B16@0:8",
+          "imp_vm": "0x100011e4c"
+        },
+        {
+          "name": "setLandscape:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100011e54"
+        },
+        {
+          "name": "orientationChanged",
+          "types": "@?16@0:8",
+          "imp_vm": "0x100011e5c"
+        },
+        {
+          "name": "setOrientationChanged:",
+          "types": "v24@0:8@?16",
+          "imp_vm": "0x100011e64"
+        },
+        {
+          "name": "isIpad",
+          "types": "B16@0:8",
+          "imp_vm": "0x100011e6c"
+        },
+        {
+          "name": "setIsIpad:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100011e78"
+        },
+        {
+          "name": "didRecordOrientation",
+          "types": "B16@0:8",
+          "imp_vm": "0x100011e80"
+        },
+        {
+          "name": "setDidRecordOrientation:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100011e88"
+        },
+        {
+          "name": "curOrientation",
+          "types": "I16@0:8",
+          "imp_vm": "0x100011e90"
+        },
+        {
+          "name": "setCurOrientation:",
+          "types": "v20@0:8I16",
+          "imp_vm": "0x100011e98"
+        },
+        {
+          "name": "curAngle",
+          "types": "q16@0:8",
+          "imp_vm": "0x100011ea0"
+        },
+        {
+          "name": "setCurAngle:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100011ea8"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x100011eb0"
+        }
+      ],
+      "address": "0x100067040",
+      "super_address": null,
+      "super_name": null
+    },
+    {
+      "name": "IESSampleHandler",
+      "methods": [
+        {
+          "name": "init",
+          "types": "@16@0:8",
+          "imp_vm": "0x100011ee4"
+        },
+        {
+          "name": "launchWithConfig:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100011f64"
+        },
+        {
+          "name": "setupCrashDetector:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100012068"
+        },
+        {
+          "name": "broadcastStartedWithSetupInfo:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000120c4"
+        },
+        {
+          "name": "suicideIfNeed",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000121f4"
+        },
+        {
+          "name": "broadcastFinished",
+          "types": "v16@0:8",
+          "imp_vm": "0x100012308"
+        },
+        {
+          "name": "finishBroadcastWithError:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100012394"
+        },
+        {
+          "name": "processSampleBuffer:withType:",
+          "types": "v32@0:8^{opaqueCMSampleBuffer=}16q24",
+          "imp_vm": "0x10001263c"
+        },
+        {
+          "name": "listenOrientationChanged",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000126cc"
+        },
+        {
+          "name": "listenEncodeParams",
+          "types": "v16@0:8",
+          "imp_vm": "0x100012940"
+        },
+        {
+          "name": "dataToYUVBuffer:width:height:",
+          "types": "^{__CVBuffer=}32@0:8@16i24i28",
+          "imp_vm": "0x100013578"
+        },
+        {
+          "name": "setupVideoProcessorNew:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x100013700"
+        },
+        {
+          "name": "setupVideoProcessorWithParams:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100013d48"
+        },
+        {
+          "name": "processor:willEncodeBuffer:timestamp:",
+          "types": "v40@0:8@16^{__CVBuffer=}24q32",
+          "imp_vm": "0x100013e28"
+        },
+        {
+          "name": "processor:didEncodeData:timestamp:dts:videoFrameType:",
+          "types": "v52@0:8@16@24q32q40i48",
+          "imp_vm": "0x100013f28"
+        },
+        {
+          "name": "processor:didReceiveEncodeError:",
+          "types": "v28@0:8@16i24",
+          "imp_vm": "0x100014144"
+        },
+        {
+          "name": "processor:onEncodeFailed:",
+          "types": "v32@0:8@16Q24",
+          "imp_vm": "0x1000141e4"
+        },
+        {
+          "name": "processVideoSampleBuffer:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x10001429c"
+        },
+        {
+          "name": "processMicAudioSampleBuffer:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x100014498"
+        },
+        {
+          "name": "processAppAudioSampleBuffer:",
+          "types": "v24@0:8^{opaqueCMSampleBuffer=}16",
+          "imp_vm": "0x1000145b0"
+        },
+        {
+          "name": "scheduledPerformanceInfoTimerIfNeed",
+          "types": "v16@0:8",
+          "imp_vm": "0x100014748"
+        },
+        {
+          "name": "stopPerformanceInfoTimer",
+          "types": "v16@0:8",
+          "imp_vm": "0x100014c4c"
+        },
+        {
+          "name": "listenPauseMessage",
+          "types": "v16@0:8",
+          "imp_vm": "0x100014cc0"
+        },
+        {
+          "name": "broadcastLivePaused",
+          "types": "v16@0:8",
+          "imp_vm": "0x10001505c"
+        },
+        {
+          "name": "broadcastLiveResumed",
+          "types": "v16@0:8",
+          "imp_vm": "0x100015148"
+        },
+        {
+          "name": "scheduledPauseSyncTimer",
+          "types": "v16@0:8",
+          "imp_vm": "0x100015200"
+        },
+        {
+          "name": "stopPauseSyncTimer",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000153d0"
+        },
+        {
+          "name": "renderPauseBackgroundImageBufferWithImage:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100015444"
+        },
+        {
+          "name": "tellAppLaunched",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000156e8"
+        },
+        {
+          "name": "listenStatusSyncMessage",
+          "types": "v16@0:8",
+          "imp_vm": "0x10001574c"
+        },
+        {
+          "name": "liveSessionEnd",
+          "types": "v16@0:8",
+          "imp_vm": "0x100015b80"
+        },
+        {
+          "name": "listenDualDeviceMessage",
+          "types": "v16@0:8",
+          "imp_vm": "0x100015da0"
+        },
+        {
+          "name": "sessionLog:description:",
+          "types": "v32@0:8q16@24",
+          "imp_vm": "0x100015f40"
+        },
+        {
+          "name": "writeDisconnectLog",
+          "types": "v16@0:8",
+          "imp_vm": "0x1000160d4"
+        },
+        {
+          "name": "setupAfterFirstCapture",
+          "types": "B16@0:8",
+          "imp_vm": "0x100016364"
+        },
+        {
+          "name": "calculateVideoResolution:expectSize:",
+          "types": "{CGSize=dd}48@0:8{CGSize=dd}16{CGSize=dd}32",
+          "imp_vm": "0x1000163a8"
+        },
+        {
+          "name": "setupOldPerf",
+          "types": "v16@0:8",
+          "imp_vm": "0x100016494"
+        },
+        {
+          "name": "setupNewPerf:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000164e8"
+        },
+        {
+          "name": "listenExtractFrameParams",
+          "types": "v16@0:8",
+          "imp_vm": "0x100016df4"
+        },
+        {
+          "name": "extractFrameHandler",
+          "types": "@16@0:8",
+          "imp_vm": "0x100016f50"
+        },
+        {
+          "name": "readExtensionUserDefault:",
+          "types": "@24@0:8@16",
+          "imp_vm": "0x100016fa8"
+        },
+        {
+          "name": "launchConfig",
+          "types": "@16@0:8",
+          "imp_vm": "0x100017098"
+        },
+        {
+          "name": "setLaunchConfig:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000170a4"
+        },
+        {
+          "name": "extensionConfig",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000170b4"
+        },
+        {
+          "name": "setExtensionConfig:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000170c0"
+        },
+        {
+          "name": "socketStyle",
+          "types": "i16@0:8",
+          "imp_vm": "0x1000170cc"
+        },
+        {
+          "name": "setSocketStyle:",
+          "types": "v20@0:8i16",
+          "imp_vm": "0x1000170dc"
+        },
+        {
+          "name": "appCommunicator",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000170ec"
+        },
+        {
+          "name": "setAppCommunicator:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000170f8"
+        },
+        {
+          "name": "videoBufferProcessor",
+          "types": "@16@0:8",
+          "imp_vm": "0x100017108"
+        },
+        {
+          "name": "setVideoBufferProcessor:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100017114"
+        },
+        {
+          "name": "isPauseBroadcast",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017124"
+        },
+        {
+          "name": "setIsPauseBroadcast:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100017130"
+        },
+        {
+          "name": "hostSessionConnectSuccessful",
+          "types": "B16@0:8",
+          "imp_vm": "0x10001713c"
+        },
+        {
+          "name": "setHostSessionConnectSuccessful:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100017148"
+        },
+        {
+          "name": "videoSize",
+          "types": "{CGSize=dd}16@0:8",
+          "imp_vm": "0x100017154"
+        },
+        {
+          "name": "setVideoSize:",
+          "types": "v32@0:8{CGSize=dd}16",
+          "imp_vm": "0x100017168"
+        },
+        {
+          "name": "hostAppName",
+          "types": "@16@0:8",
+          "imp_vm": "0x10001717c"
+        },
+        {
+          "name": "setHostAppName:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100017188"
+        },
+        {
+          "name": "roomId",
+          "types": "@16@0:8",
+          "imp_vm": "0x100017194"
+        },
+        {
+          "name": "setRoomId:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000171a0"
+        },
+        {
+          "name": "streamSuccessed",
+          "types": "B16@0:8",
+          "imp_vm": "0x1000171b0"
+        },
+        {
+          "name": "setStreamSuccessed:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x1000171bc"
+        },
+        {
+          "name": "videoBufferCountInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000171c8"
+        },
+        {
+          "name": "setVideoBufferCountInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000171d4"
+        },
+        {
+          "name": "willEncodeVideoBufferCountInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000171e0"
+        },
+        {
+          "name": "setWillEncodeVideoBufferCountInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x1000171ec"
+        },
+        {
+          "name": "encodedVideoBufferCountInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x1000171f8"
+        },
+        {
+          "name": "setEncodedVideoBufferCountInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100017204"
+        },
+        {
+          "name": "appAudioBufferCountInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x100017210"
+        },
+        {
+          "name": "setAppAudioBufferCountInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10001721c"
+        },
+        {
+          "name": "encodeFailedCountInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x100017228"
+        },
+        {
+          "name": "setEncodeFailedCountInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100017234"
+        },
+        {
+          "name": "encodeErrorCode",
+          "types": "q16@0:8",
+          "imp_vm": "0x100017240"
+        },
+        {
+          "name": "setEncodeErrorCode:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x10001724c"
+        },
+        {
+          "name": "videoDataLengthInDuration",
+          "types": "q16@0:8",
+          "imp_vm": "0x100017258"
+        },
+        {
+          "name": "setVideoDataLengthInDuration:",
+          "types": "v24@0:8q16",
+          "imp_vm": "0x100017264"
+        },
+        {
+          "name": "videoBufferTimeInDuration",
+          "types": "d16@0:8",
+          "imp_vm": "0x100017270"
+        },
+        {
+          "name": "setVideoBufferTimeInDuration:",
+          "types": "v24@0:8d16",
+          "imp_vm": "0x100017280"
+        },
+        {
+          "name": "timerQueue",
+          "types": "@16@0:8",
+          "imp_vm": "0x100017290"
+        },
+        {
+          "name": "setTimerQueue:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x10001729c"
+        },
+        {
+          "name": "performanceInfoTimer",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000172ac"
+        },
+        {
+          "name": "setPerformanceInfoTimer:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000172b8"
+        },
+        {
+          "name": "pauseSyncTimer",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000172c8"
+        },
+        {
+          "name": "setPauseSyncTimer:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000172d4"
+        },
+        {
+          "name": "pauseBackgroundImage",
+          "types": "@16@0:8",
+          "imp_vm": "0x1000172e4"
+        },
+        {
+          "name": "setPauseBackgroundImage:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x1000172f0"
+        },
+        {
+          "name": "pauseBackgroundImageBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x100017300"
+        },
+        {
+          "name": "setPauseBackgroundImageBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x10001730c"
+        },
+        {
+          "name": "optResolution",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017318"
+        },
+        {
+          "name": "setOptResolution:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100017324"
+        },
+        {
+          "name": "isYUVOutput",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017330"
+        },
+        {
+          "name": "setIsYUVOutput:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10001733c"
+        },
+        {
+          "name": "encodeParams",
+          "types": "@16@0:8",
+          "imp_vm": "0x100017348"
+        },
+        {
+          "name": "setEncodeParams:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100017354"
+        },
+        {
+          "name": "isProcessorSetup",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017360"
+        },
+        {
+          "name": "setIsProcessorSetup:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10001736c"
+        },
+        {
+          "name": "needProcessMicAudio",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017378"
+        },
+        {
+          "name": "setNeedProcessMicAudio:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100017384"
+        },
+        {
+          "name": "didSendMicState",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017390"
+        },
+        {
+          "name": "setDidSendMicState:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10001739c"
+        },
+        {
+          "name": "isDualDeviceCamera",
+          "types": "B16@0:8",
+          "imp_vm": "0x1000173a8"
+        },
+        {
+          "name": "setDualDeviceCamera:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x1000173b4"
+        },
+        {
+          "name": "pixelScale",
+          "types": "d16@0:8",
+          "imp_vm": "0x1000173c0"
+        },
+        {
+          "name": "setPixelScale:",
+          "types": "v24@0:8d16",
+          "imp_vm": "0x1000173d0"
+        },
+        {
+          "name": "isDualDeviceCameraOn",
+          "types": "B16@0:8",
+          "imp_vm": "0x1000173e0"
+        },
+        {
+          "name": "setIsDualDeviceCameraOn:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x1000173ec"
+        },
+        {
+          "name": "monitorOrientationChanged",
+          "types": "B16@0:8",
+          "imp_vm": "0x1000173f8"
+        },
+        {
+          "name": "setMonitorOrientationChanged:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x100017404"
+        },
+        {
+          "name": "streamPause",
+          "types": "B16@0:8",
+          "imp_vm": "0x100017410"
+        },
+        {
+          "name": "setStreamPause:",
+          "types": "v20@0:8B16",
+          "imp_vm": "0x10001741c"
+        },
+        {
+          "name": "pausePixelBuffer",
+          "types": "^{__CVBuffer=}16@0:8",
+          "imp_vm": "0x100017428"
+        },
+        {
+          "name": "setPausePixelBuffer:",
+          "types": "v24@0:8^{__CVBuffer=}16",
+          "imp_vm": "0x100017434"
+        },
+        {
+          "name": "setExtractFrameHandler:",
+          "types": "v24@0:8@16",
+          "imp_vm": "0x100017440"
+        },
+        {
+          "name": ".cxx_destruct",
+          "types": "v16@0:8",
+          "imp_vm": "0x100017450"
+        }
+      ],
+      "address": "0x100067090",
+      "super_address": null,
+      "super_name": null
+    }
+  ]
+}
