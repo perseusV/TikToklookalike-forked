@@ -1,0 +1,1203 @@
+[
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/TikTok",
+    "size": 189440,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 50,
+    "encryption": [
+      {
+        "cryptoff": 24576,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 159536,
+        "datasize": 29904
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "@rpath/MusicallyCore.framework/MusicallyCore",
+      "@rpath/boringssl.framework/boringssl",
+      "@rpath/crypto.framework/crypto",
+      "/System/Library/Frameworks/AppIntents.framework/AppIntents",
+      "/System/Library/Frameworks/Intents.framework/Intents",
+      "/System/Library/Frameworks/WidgetKit.framework/WidgetKit",
+      "/usr/lib/libc++.1.dylib",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "/usr/lib/swift/libswiftOSLog.dylib",
+      "/usr/lib/swift/libswiftSpatial.dylib",
+      "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+      "/usr/lib/swift/libswift_Concurrency.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftCoreLocation.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftXPC.dylib",
+      "@rpath/libswiftos.dylib",
+      "@rpath/libswiftsimd.dylib",
+      "@rpath/libswiftFoundation.dylib",
+      "@rpath/libswiftUIKit.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/libswift_Concurrency.dylib",
+    "size": 417072,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 19,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 262144,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 388624,
+        "datasize": 28448
+      }
+    ],
+    "dylibs": [
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "@rpath/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/AwemeNotificationService.appex/AwemeNotificationService",
+    "size": 1378144,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 45,
+    "encryption": [
+      {
+        "cryptoff": 876544,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 1324960,
+        "datasize": 53184
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/Intents.framework/Intents",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/System/Library/Frameworks/UserNotifications.framework/UserNotifications",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "@rpath/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/TikTokIntentExtension.appex/TikTokIntentExtension",
+    "size": 108592,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 31,
+    "encryption": [
+      {
+        "cryptoff": 28672,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 87056,
+        "datasize": 21536
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/Intents.framework/Intents",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/usr/lib/libc++.1.dylib",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/usr/lib/swift/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/TikTokMessageExtension.appex/TikTokMessageExtension",
+    "size": 3523104,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 71,
+    "encryption": [
+      {
+        "cryptoff": 1994752,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 3416864,
+        "datasize": 106240
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CFNetwork.framework/CFNetwork",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/ImageIO.framework/ImageIO",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/MapKit.framework/MapKit",
+      "/System/Library/Frameworks/Messages.framework/Messages",
+      "/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/System/Library/Frameworks/WebKit.framework/WebKit",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libsqlite3.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreServices.framework/CoreServices",
+      "/System/Library/Frameworks/Metal.framework/Metal",
+      "/System/Library/Frameworks/MetalKit.framework/MetalKit",
+      "/usr/lib/swift/libswiftCore.dylib",
+      "/usr/lib/swift/libswiftCoreFoundation.dylib",
+      "/usr/lib/swift/libswiftCoreImage.dylib",
+      "/usr/lib/swift/libswiftDarwin.dylib",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftDispatch.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "/usr/lib/swift/libswiftMetal.dylib",
+      "/usr/lib/swift/libswiftMetalKit.dylib",
+      "/usr/lib/swift/libswiftModelIO.dylib",
+      "/usr/lib/swift/libswiftObjectiveC.dylib",
+      "/usr/lib/swift/libswiftQuartzCore.dylib",
+      "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+      "/usr/lib/swift/libswiftXPC.dylib",
+      "/usr/lib/swift/libswiftsimd.dylib",
+      "/usr/lib/swift/libswiftCoreGraphics.dylib",
+      "/usr/lib/swift/libswiftFoundation.dylib",
+      "/usr/lib/swift/libswiftUIKit.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/AwemeWidgetExtension.appex/AwemeWidgetExtension",
+    "size": 2315824,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 72,
+    "encryption": [
+      {
+        "cryptoff": 1515520,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 2239488,
+        "datasize": 76336
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/System/Library/Frameworks/WidgetKit.framework/WidgetKit",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/ActivityKit.framework/ActivityKit",
+      "/System/Library/Frameworks/AppIntents.framework/AppIntents",
+      "/System/Library/Frameworks/Combine.framework/Combine",
+      "/System/Library/Frameworks/CryptoKit.framework/CryptoKit",
+      "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+      "/usr/lib/swift/libswiftCore.dylib",
+      "/usr/lib/swift/libswiftCoreFoundation.dylib",
+      "/usr/lib/swift/libswiftCoreImage.dylib",
+      "/usr/lib/swift/libswiftCoreLocation.dylib",
+      "/usr/lib/swift/libswiftDarwin.dylib",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftDispatch.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "/usr/lib/swift/libswiftIntents.dylib",
+      "/usr/lib/swift/libswiftMetal.dylib",
+      "/usr/lib/swift/libswiftOSLog.dylib",
+      "/usr/lib/swift/libswiftObjectiveC.dylib",
+      "/usr/lib/swift/libswiftQuartzCore.dylib",
+      "/usr/lib/swift/libswiftSpatial.dylib",
+      "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+      "/usr/lib/swift/libswiftXPC.dylib",
+      "/usr/lib/swift/libswiftos.dylib",
+      "/usr/lib/swift/libswiftsimd.dylib",
+      "@rpath/libswift_Concurrency.dylib",
+      "/usr/lib/swift/libswiftCoreGraphics.dylib",
+      "/usr/lib/swift/libswiftFoundation.dylib",
+      "/usr/lib/swift/libswiftUIKit.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/AwemeShareExtension.appex/AwemeShareExtension",
+    "size": 1503712,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 47,
+    "encryption": [
+      {
+        "cryptoff": 954368,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 1447472,
+        "datasize": 56240
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/ImageIO.framework/ImageIO",
+      "/System/Library/Frameworks/Intents.framework/Intents",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreServices.framework/CoreServices",
+      "@rpath/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/AWEVideoWidget.appex/AWEVideoWidget",
+    "size": 1325360,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 44,
+    "encryption": [
+      {
+        "cryptoff": 860160,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 1273600,
+        "datasize": 51760
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/NotificationCenter.framework/NotificationCenter",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "@rpath/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/PlugIns/AwemeBroadcastExtension.appex/AwemeBroadcastExtension",
+    "size": 644816,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 42,
+    "encryption": [
+      {
+        "cryptoff": 311296,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 609840,
+        "datasize": 34976
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreMotion.framework/CoreMotion",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/Metal.framework/Metal",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/ReplayKit.framework/ReplayKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/System/Library/Frameworks/UserNotifications.framework/UserNotifications",
+      "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libc++abi.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "@rpath/libswiftCore.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/libvcn.framework/libvcn",
+    "size": 352704,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 19,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 147456,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 325856,
+        "datasize": 26848
+      }
+    ],
+    "dylibs": [
+      "@rpath/boringssl.framework/boringssl",
+      "@rpath/crypto.framework/crypto",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libSystem.B.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/crypto.framework/crypto",
+    "size": 1640000,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 17,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 671744,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 1581232,
+        "datasize": 58768
+      }
+    ],
+    "dylibs": [
+      "/usr/lib/libSystem.B.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/AAAASingularity.framework/AAAASingularity",
+    "size": 111712,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 23,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 16384,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 90720,
+        "datasize": 20992
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/AAWELaunchTracker.framework/AAWELaunchTracker",
+    "size": 84304,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 36,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 16384,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 64048,
+        "datasize": 20256
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftUIKit.dylib",
+      "@rpath/libswiftCoreGraphics.dylib",
+      "@rpath/libswiftFoundation.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/bytevc1enc.framework/bytevc1enc",
+    "size": 986176,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 16,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 884736,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 943568,
+        "datasize": 42608
+      }
+    ],
+    "dylibs": [
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libSystem.B.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/OMSDK_Bytedance1.framework/OMSDK_Bytedance1",
+    "size": 308560,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 24,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 114688,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 282688,
+        "datasize": 25872
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/UIKit.framework/UIKit"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/SpotifyLogin.framework/SpotifyLogin",
+    "size": 129248,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 38,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 49152,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 107856,
+        "datasize": 21392
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftXPC.dylib",
+      "@rpath/libswiftos.dylib",
+      "@rpath/libswiftFoundation.dylib",
+      "@rpath/libswiftUIKit.dylib",
+      "@rpath/libswiftCoreGraphics.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/TTFFmpeg.framework/TTFFmpeg",
+    "size": 3263904,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 33,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 2768896,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 3164944,
+        "datasize": 98960
+      }
+    ],
+    "dylibs": [
+      "@rpath/boringssl.framework/boringssl",
+      "@rpath/crypto.framework/crypto",
+      "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+      "/usr/lib/libxml2.2.dylib",
+      "/usr/lib/libc++.1.dylib",
+      "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/usr/lib/libobjc.A.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/AAWEBootChecker.framework/AAWEBootChecker",
+    "size": 75312,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 22,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 16384,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 55264,
+        "datasize": 20048
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/ffmpeg_dashdec.framework/ffmpeg_dashdec",
+    "size": 105824,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 32,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 32768,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 85024,
+        "datasize": 20800
+      }
+    ],
+    "dylibs": [
+      "@rpath/TTFFmpeg.framework/TTFFmpeg",
+      "@rpath/boringssl.framework/boringssl",
+      "@rpath/crypto.framework/crypto",
+      "/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+      "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox",
+      "/usr/lib/libxml2.2.dylib",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libSystem.B.dylib",
+      "/usr/lib/libobjc.A.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/BDLRepairer.framework/BDLRepairer",
+    "size": 86192,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 21,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 16384,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 65872,
+        "datasize": 20320
+      }
+    ],
+    "dylibs": [
+      "/usr/lib/libc++.1.dylib",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/TTPOrbuService.framework/TTPOrbuService",
+    "size": 2061856,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 45,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 1671168,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 1992656,
+        "datasize": 69200
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CryptoKit.framework/CryptoKit",
+      "/System/Library/Frameworks/ImageIO.framework/ImageIO",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libsqlite3.dylib",
+      "/usr/lib/swift/libswiftCoreMIDI.dylib",
+      "/usr/lib/swift/libswiftOSLog.dylib",
+      "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+      "@rpath/libswiftAVFoundation.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreAudio.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftCoreMedia.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftos.dylib",
+      "@rpath/libswiftsimd.dylib",
+      "@rpath/libswiftFoundation.dylib",
+      "@rpath/libswiftCoreGraphics.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/SCSDKCreativeKit.framework/SCSDKCreativeKit",
+    "size": 132144,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 23,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 49152,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 110640,
+        "datasize": 21504
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "@rpath/SCSDKCoreKit.framework/SCSDKCoreKit"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/boringssl.framework/boringssl",
+    "size": 723424,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 19,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 245760,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 687424,
+        "datasize": 36000
+      }
+    ],
+    "dylibs": [
+      "@rpath/crypto.framework/crypto",
+      "/usr/lib/libSystem.B.dylib",
+      "/usr/lib/libc++.1.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/MusicallyCore.framework/MusicallyCore",
+    "size": 376342512,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 173,
+    "encryption": [
+      {
+        "cryptoff": 32768,
+        "cryptsize": 12107776,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 367005392,
+        "datasize": 9337120
+      }
+    ],
+    "dylibs": [
+      "/usr/lib/libcompression.dylib",
+      "@rpath/BDLRepairer.framework/BDLRepairer",
+      "@rpath/AAAASingularity.framework/AAAASingularity",
+      "@rpath/AAWEBootChecker.framework/AAWEBootChecker",
+      "@rpath/AAWELaunchTracker.framework/AAWELaunchTracker",
+      "/System/Library/Frameworks/ARKit.framework/ARKit",
+      "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+      "/System/Library/Frameworks/AVKit.framework/AVKit",
+      "/System/Library/Frameworks/Accelerate.framework/Accelerate",
+      "/System/Library/Frameworks/Accounts.framework/Accounts",
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency",
+      "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+      "/System/Library/Frameworks/AuthenticationServices.framework/AuthenticationServices",
+      "/System/Library/Frameworks/CFNetwork.framework/CFNetwork",
+      "/System/Library/Frameworks/CallKit.framework/CallKit",
+      "/System/Library/Frameworks/Contacts.framework/Contacts",
+      "/System/Library/Frameworks/CoreAudio.framework/CoreAudio",
+      "/System/Library/Frameworks/CoreData.framework/CoreData",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+      "/System/Library/Frameworks/CoreHaptics.framework/CoreHaptics",
+      "/System/Library/Frameworks/CoreImage.framework/CoreImage",
+      "/System/Library/Frameworks/CoreLocation.framework/CoreLocation",
+      "/System/Library/Frameworks/CoreML.framework/CoreML",
+      "/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+      "/System/Library/Frameworks/CoreMotion.framework/CoreMotion",
+      "/System/Library/Frameworks/CoreServices.framework/CoreServices",
+      "/System/Library/Frameworks/CoreSpotlight.framework/CoreSpotlight",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/CoreText.framework/CoreText",
+      "/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+      "/System/Library/Frameworks/EventKit.framework/EventKit",
+      "/System/Library/Frameworks/EventKitUI.framework/EventKitUI",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/GLKit.framework/GLKit",
+      "/System/Library/Frameworks/GameController.framework/GameController",
+      "/System/Library/Frameworks/GameplayKit.framework/GameplayKit",
+      "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+      "/System/Library/Frameworks/ImageIO.framework/ImageIO",
+      "/System/Library/Frameworks/JavaScriptCore.framework/JavaScriptCore",
+      "/System/Library/Frameworks/LocalAuthentication.framework/LocalAuthentication",
+      "/System/Library/Frameworks/MapKit.framework/MapKit",
+      "/System/Library/Frameworks/MediaAccessibility.framework/MediaAccessibility",
+      "/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer",
+      "/System/Library/Frameworks/MediaToolbox.framework/MediaToolbox",
+      "/System/Library/Frameworks/MessageUI.framework/MessageUI",
+      "/System/Library/Frameworks/Metal.framework/Metal",
+      "/System/Library/Frameworks/MetalKit.framework/MetalKit",
+      "/System/Library/Frameworks/MetalPerformanceShaders.framework/MetalPerformanceShaders",
+      "/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices",
+      "/System/Library/Frameworks/ModelIO.framework/ModelIO",
+      "/System/Library/Frameworks/NaturalLanguage.framework/NaturalLanguage",
+      "/System/Library/Frameworks/Network.framework/Network",
+      "@rpath/OMSDK_Bytedance1.framework/OMSDK_Bytedance1",
+      "/System/Library/Frameworks/OpenAL.framework/OpenAL",
+      "/System/Library/Frameworks/OpenGLES.framework/OpenGLES",
+      "/System/Library/Frameworks/PassKit.framework/PassKit",
+      "/System/Library/Frameworks/Photos.framework/Photos",
+      "/System/Library/Frameworks/PhotosUI.framework/PhotosUI",
+      "/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+      "/System/Library/Frameworks/ReplayKit.framework/ReplayKit",
+      "@rpath/SCSDKCoreKit.framework/SCSDKCoreKit",
+      "@rpath/SCSDKCreativeKit.framework/SCSDKCreativeKit",
+      "/System/Library/Frameworks/SafariServices.framework/SafariServices",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "@rpath/SmartView.framework/SmartView",
+      "/System/Library/Frameworks/Social.framework/Social",
+      "/System/Library/Frameworks/Speech.framework/Speech",
+      "@rpath/SpotifyLogin.framework/SpotifyLogin",
+      "/System/Library/Frameworks/StoreKit.framework/StoreKit",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "@rpath/TTFFmpeg.framework/TTFFmpeg",
+      "@rpath/TTPOrbuService.framework/TTPOrbuService",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/System/Library/Frameworks/UserNotifications.framework/UserNotifications",
+      "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox",
+      "/System/Library/Frameworks/WebKit.framework/WebKit",
+      "@rpath/boringssl.framework/boringssl",
+      "@rpath/bytevc1enc.framework/bytevc1enc",
+      "@rpath/crypto.framework/crypto",
+      "@rpath/ffmpeg_dashdec.framework/ffmpeg_dashdec",
+      "@rpath/libvcn.framework/libvcn",
+      "/System/Library/Frameworks/BackgroundAssets.framework/BackgroundAssets",
+      "/System/Library/Frameworks/Combine.framework/Combine",
+      "/System/Library/Frameworks/ContactsUI.framework/ContactsUI",
+      "/System/Library/Frameworks/DeviceCheck.framework/DeviceCheck",
+      "/System/Library/Frameworks/LinkPresentation.framework/LinkPresentation",
+      "/System/Library/Frameworks/MetricKit.framework/MetricKit",
+      "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+      "/usr/lib/libbz2.1.0.dylib",
+      "/usr/lib/libc++.1.dylib",
+      "/usr/lib/libc++abi.dylib",
+      "/usr/lib/libiconv.2.dylib",
+      "/usr/lib/libicucore.A.dylib",
+      "/usr/lib/liblzma.5.dylib",
+      "/usr/lib/libresolv.9.dylib",
+      "/usr/lib/libsqlite3.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/usr/lib/libxml2.2.dylib",
+      "/usr/lib/libz.1.dylib",
+      "/usr/lib/libobjc.A.dylib",
+      "/System/Library/Frameworks/ActivityKit.framework/ActivityKit",
+      "/System/Library/Frameworks/AppIntents.framework/AppIntents",
+      "/System/Library/Frameworks/CoreBluetooth.framework/CoreBluetooth",
+      "/System/Library/Frameworks/CryptoKit.framework/CryptoKit",
+      "/System/Library/Frameworks/GroupActivities.framework/GroupActivities",
+      "/System/Library/Frameworks/Intents.framework/Intents",
+      "/System/Library/Frameworks/OSLog.framework/OSLog",
+      "/System/Library/Frameworks/SceneKit.framework/SceneKit",
+      "/System/Library/Frameworks/Vision.framework/Vision",
+      "/System/Library/Frameworks/WidgetKit.framework/WidgetKit",
+      "/usr/lib/swift/libswiftCompression.dylib",
+      "/usr/lib/swift/libswiftCoreMIDI.dylib",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "/usr/lib/swift/libswiftMetricKit.dylib",
+      "/usr/lib/swift/libswiftOSLog.dylib",
+      "/usr/lib/swift/libswiftPassKit.dylib",
+      "/usr/lib/swift/libswiftSpatial.dylib",
+      "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib",
+      "/usr/lib/swift/libswiftVideoToolbox.dylib",
+      "/usr/lib/swift/libswiftWebKit.dylib",
+      "/usr/lib/swift/libswift_Concurrency.dylib",
+      "@rpath/libswiftARKit.dylib",
+      "@rpath/libswiftAVFoundation.dylib",
+      "@rpath/libswiftAccelerate.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreAudio.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftCoreLocation.dylib",
+      "@rpath/libswiftCoreMedia.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftGLKit.dylib",
+      "@rpath/libswiftIntents.dylib",
+      "@rpath/libswiftMapKit.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftMetalKit.dylib",
+      "@rpath/libswiftModelIO.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftSceneKit.dylib",
+      "@rpath/libswiftSpriteKit.dylib",
+      "@rpath/libswiftXPC.dylib",
+      "@rpath/libswiftos.dylib",
+      "@rpath/libswiftsimd.dylib",
+      "@rpath/libswiftCoreGraphics.dylib",
+      "@rpath/libswiftFoundation.dylib",
+      "@rpath/libswiftUIKit.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/SmartView.framework/SmartView",
+    "size": 785376,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 39,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 507904,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 747744,
+        "datasize": 37632
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CFNetwork.framework/CFNetwork",
+      "/System/Library/Frameworks/CoreBluetooth.framework/CoreBluetooth",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/swift/libswiftDataDetection.dylib",
+      "/usr/lib/swift/libswiftFileProvider.dylib",
+      "@rpath/libswiftCore.dylib",
+      "@rpath/libswiftCoreFoundation.dylib",
+      "@rpath/libswiftCoreImage.dylib",
+      "@rpath/libswiftDarwin.dylib",
+      "@rpath/libswiftDispatch.dylib",
+      "@rpath/libswiftMetal.dylib",
+      "@rpath/libswiftObjectiveC.dylib",
+      "@rpath/libswiftQuartzCore.dylib",
+      "@rpath/libswiftUIKit.dylib",
+      "@rpath/libswiftFoundation.dylib",
+      "@rpath/libswiftCoreGraphics.dylib"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Frameworks/SCSDKCoreKit.framework/SCSDKCoreKit",
+    "size": 359744,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 6,
+    "ncmds": 22,
+    "encryption": [
+      {
+        "cryptoff": 16384,
+        "cryptsize": 245760,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 332640,
+        "datasize": 27104
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
+      "/System/Library/Frameworks/Security.framework/Security",
+      "/System/Library/Frameworks/UIKit.framework/UIKit"
+    ]
+  },
+  {
+    "path": "/home/ubuntu/workspace/extracted/original/Payload/TikTok.app/Extensions/TikTokBackgroundAssetExtension.appex/TikTokBackgroundAssetExtension",
+    "size": 108544,
+    "magic": "0xfeedfacf",
+    "arch": "arm64",
+    "filetype": 2,
+    "ncmds": 31,
+    "encryption": [
+      {
+        "cryptoff": 28672,
+        "cryptsize": 4096,
+        "cryptid": 0
+      }
+    ],
+    "code_signature": [
+      {
+        "dataoff": 86656,
+        "datasize": 21888
+      }
+    ],
+    "dylibs": [
+      "/System/Library/Frameworks/AdSupport.framework/AdSupport",
+      "/System/Library/Frameworks/BackgroundAssets.framework/BackgroundAssets",
+      "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony",
+      "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration",
+      "/usr/lib/libc++.1.dylib",
+      "/System/Library/Frameworks/Foundation.framework/Foundation",
+      "/System/Library/Frameworks/UIKit.framework/UIKit",
+      "/usr/lib/libobjc.A.dylib",
+      "/usr/lib/libSystem.B.dylib",
+      "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+    ]
+  }
+]
