@@ -14,7 +14,7 @@ com.zhiliaoapp.musically.VideoBroadcastExtension1
 
 ## UI behavior
 
-The floating icon can be dragged inside the safe area and remembers its position. Tapping it selects one video and stores it in the app cache plus the jailbreak-shared path:
+The floating icon can be dragged inside the safe area and remembers its position. Only one icon is retained per TikTok window, even when nested LIVE controllers appear. Tapping it selects one video. The picker first tries a temporary file URL and falls back to the provider's data representation when Photos returns a stale or nonexistent URL. The result is stored in the app cache plus the jailbreak-shared path:
 
 ```text
 /var/mobile/Media/PrerecordedLiveUI/selected-video.mov

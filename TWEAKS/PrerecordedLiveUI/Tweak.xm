@@ -9,9 +9,63 @@
 static const void *kPRPButtonKey = &kPRPButtonKey;
 static const void *kPRPTargetKey = &kPRPTargetKey;
 static const void *kPRPPickerDelegateKey = &kPRPPickerDelegateKey;
+static const void *kPRPWindowButtonKey = &kPRPWindowButtonKey;
 
 static NSString *PRPSharedVideoPath(void) {
     return @"/var/mobile/Media/PrerecordedLiveUI/selected-video.mov";
+}
+
+static NSString *PRPPrivateVideoPath(void) {
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"PrerecordedLiveUI"];
+    return [dir stringByAppendingPathComponent:@"selected-video.mov"];
+}
+
+static BOOL PRPStoreVideoData(NSData *data, NSURL **resultURL, NSError **resultError) {
+    if (data.length == 0) {
+        if (resultError) *resultError = [NSError errorWithDomain:@"PrerecordedLiveUI" code:4 userInfo:@{NSLocalizedDescriptionKey: @"The selected video provider returned no data."}];
+        return NO;
+    }
+    NSString *privatePath = PRPPrivateVideoPath();
+    NSString *privateDir = [privatePath stringByDeletingLastPathComponent];
+    [[NSFileManager defaultManager] createDirectoryAtPath:privateDir withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:privatePath error:nil];
+    NSError *error = nil;
+    if (![data writeToFile:privatePath options:NSDataWritingAtomic error:&error]) {
+        if (resultError) *resultError = error;
+        return NO;
+    }
+    NSString *sharedPath = PRPSharedVideoPath();
+    NSString *sharedDir = [sharedPath stringByDeletingLastPathComponent];
+    [[NSFileManager defaultManager] createDirectoryAtPath:sharedDir withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
+    if (![[NSFileManager defaultManager] copyItemAtPath:privatePath toPath:sharedPath error:&error]) {
+        if (resultError) *resultError = error;
+        return NO;
+    }
+    if (resultURL) *resultURL = [NSURL fileURLWithPath:privatePath];
+    return YES;
+}
+
+static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **resultError) {
+    NSString *privatePath = PRPPrivateVideoPath();
+    NSString *privateDir = [privatePath stringByDeletingLastPathComponent];
+    [[NSFileManager defaultManager] createDirectoryAtPath:privateDir withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:privatePath error:nil];
+    NSError *error = nil;
+    BOOL copied = [[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:[NSURL fileURLWithPath:privatePath] error:&error];
+    if (!copied) {
+        NSData *fallbackData = [NSData dataWithContentsOfURL:sourceURL options:0 error:&error];
+        if (fallbackData) return PRPStoreVideoData(fallbackData, resultURL, resultError);
+        if (resultError) *resultError = error;
+        return NO;
+    }
+    NSData *data = [NSData dataWithContentsOfFile:privatePath options:0 error:&error];
+    if (!data || data.length == 0) {
+        if (resultError) *resultError = error ?: [NSError errorWithDomain:@"PrerecordedLiveUI" code:5 userInfo:@{NSLocalizedDescriptionKey: @"The copied video is empty."}];
+        return NO;
+    }
+    BOOL stored = PRPStoreVideoData(data, resultURL, resultError);
+    return stored;
 }
 
 @interface PRPAssetPump : NSObject
@@ -158,26 +212,22 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
     }
     [provider loadFileRepresentationForTypeIdentifier:@"public.movie" completionHandler:^(NSURL *url, NSError *error) {
         if (error || !url) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (self.completion) self.completion(nil, error ?: [NSError errorWithDomain:@"PrerecordedLiveUI" code:3 userInfo:@{NSLocalizedDescriptionKey: @"Could not read the selected video."}]);
-            });
+            NSLog(@"[PrerecordedLiveUI] file representation failed, trying data representation: %@", error);
+            [provider loadDataRepresentationForTypeIdentifier:@"public.movie" completionHandler:^(NSData *data, NSError *dataError) {
+                NSURL *storedURL = nil;
+                NSError *storeError = dataError;
+                BOOL stored = data && PRPStoreVideoData(data, &storedURL, &storeError);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.completion) self.completion(stored ? storedURL : nil, stored ? nil : (storeError ?: error));
+                });
+            }];
             return;
         }
-        NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"PrerecordedLiveUI"];
-        [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
-        NSString *path = [dir stringByAppendingPathComponent:@"selected-video.mov"];
-        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-        NSError *copyError = nil;
-        BOOL copied = [[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:path] error:&copyError];
-        NSString *sharedDir = [PRPSharedVideoPath() stringByDeletingLastPathComponent];
-        [[NSFileManager defaultManager] createDirectoryAtPath:sharedDir withIntermediateDirectories:YES attributes:nil error:nil];
-        NSString *sharedPath = PRPSharedVideoPath();
-        [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
-        NSError *sharedError = nil;
-        BOOL sharedCopied = [[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:sharedPath] error:&sharedError];
-        if (!sharedCopied && !copyError) copyError = sharedError;
+        NSURL *storedURL = nil;
+        NSError *storeError = nil;
+        BOOL stored = PRPStoreVideoFile(url, &storedURL, &storeError);
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.completion) self.completion(copied && sharedCopied ? [NSURL fileURLWithPath:path] : nil, (copied && sharedCopied) ? nil : copyError);
+            if (self.completion) self.completion(stored ? storedURL : nil, stored ? nil : storeError);
         });
     }];
 }
@@ -238,9 +288,33 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
 }
 @end
 
+static UIButton *PRPFindFloatingButton(UIView *view) {
+    if ([view isKindOfClass:[UIButton class]] && [((UIButton *)view).accessibilityIdentifier isEqualToString:@"PrerecordedLiveUI.button"]) {
+        return (UIButton *)view;
+    }
+    for (UIView *child in view.subviews) {
+        UIButton *found = PRPFindFloatingButton(child);
+        if (found) return found;
+    }
+    return nil;
+}
+
 static void PRPInstallButton(UIViewController *vc) {
     if (!vc.viewIfLoaded || !PRPIsLiveController(vc)) return;
     if (objc_getAssociatedObject(vc, kPRPButtonKey)) return;
+    UIWindow *window = vc.view.window;
+    UIButton *existing = window ? (UIButton *)objc_getAssociatedObject(window, kPRPWindowButtonKey) : nil;
+    if (!existing && window) existing = PRPFindFloatingButton(window);
+    if (existing) {
+        PRPButtonTarget *existingTarget = objc_getAssociatedObject(existing, kPRPTargetKey);
+        if (existingTarget) {
+            existingTarget.viewController = vc;
+            objc_setAssociatedObject(vc, kPRPButtonKey, existing, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(window, kPRPWindowButtonKey, existing, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return;
+        }
+        [existing removeFromSuperview];
+    }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.accessibilityIdentifier = @"PrerecordedLiveUI.button";
     if (@available(iOS 13.0, *)) [button setImage:[UIImage systemImageNamed:@"video.fill"] forState:UIControlStateNormal];
@@ -269,6 +343,8 @@ static void PRPInstallButton(UIViewController *vc) {
     button.center = center;
     objc_setAssociatedObject(vc, kPRPButtonKey, button, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(vc, kPRPTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(button, kPRPTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (window) objc_setAssociatedObject(window, kPRPWindowButtonKey, button, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSLog(@"[PrerecordedLiveUI] installed button on %@", NSStringFromClass(vc.class));
 }
 
