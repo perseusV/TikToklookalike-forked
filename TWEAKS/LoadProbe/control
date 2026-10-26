@@ -1,0 +1,9 @@
+Package: com.manus.tiktokloadprobe
+Name: TikTok Load Probe
+Version: 0.1.0
+Architecture: iphoneos-arm64
+Description: Harmless constructor-only injection probe for TikTok
+Maintainer: Manus
+Author: Manus
+Section: Tweaks
+Depends: firmware (>= 15.0)
