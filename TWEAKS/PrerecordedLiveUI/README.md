@@ -1,71 +1,49 @@
-# PrerecordedLiveUI 0.2.0
+# PrerecordedLiveUI 0.3.0
 
-This build pivots from the earlier ReplayKit-only experiment to the camera path used by the supplied working `TikTokFakeLiveCam` package.
+This is a crash-safe diagnostic build based on the supplied working `TikTokFakeLiveCam` package.
 
-## Reference package finding
+## Safety changes
 
-Static analysis of `com.mohamedjj.tiktokfakelivecam_1.0.0-1_iphoneos-arm64.deb` found:
+- The ReplayKit `SampleHandler` hook is disabled.
+- Camera replacement is **off by default**. TikTok's original camera delegate is left untouched until explicitly enabled in the settings menu.
+- The reader is isolated per `AVCaptureVideoDataOutput` rather than shared globally.
+- Replacement frames are rejected unless their width, height, and pixel format exactly match TikTok's incoming camera frame.
+- The selected file is validated for an iOS-decodable video track before it is accepted.
+- New video selection removes the previous selected video first, preventing stale state.
 
-- Its tweak filter targets only `com.zhiliaoapp.musically`.
-- It wraps `AVCaptureVideoDataOutput`'s sample-buffer delegate.
-- Its proxy forwards `captureOutput:didOutputSampleBuffer:fromConnection:` to TikTok with a replacement video buffer.
-- It uses `AVAssetReader`/`AVAssetReaderTrackOutput` and matches the incoming camera pixel format and dimensions.
-- It reads `selected.mov` from `Documents/TikTokFakeLiveCam` inside TikTok's own data container.
-- It does not replace ReplayKit `SampleHandler` buffers.
+## Video sources
 
-That architecture explains why the earlier build could select a file but never affect TikTok's LIVE preview or outgoing camera path.
+Tap the floating video icon for the Photos picker. Long-press it for settings, including **Choose video from Files**. The Files picker accepts common iOS video UTIs, including MP4/MOV/M4V/3GP files that AVFoundation can decode. Unsupported codecs or containers are rejected with a visible error; iOS AVFoundation cannot promise arbitrary formats such as every MKV/WebM variant without an external transcoder.
 
-## Corrected implementation
+## Debug screen
 
-This package now:
-
-1. Stores the selected video in TikTok's own container:
+Long-press the floating icon and choose **Open debug screen**. The screen displays and can clear:
 
 ```text
-< TikTok home >/Documents/TikTokFakeLiveCam/selected.mov
+< TikTok home >/Documents/TikTokFakeLiveCam/diagnostic.log
 ```
 
-2. Removes the previous selected file when a new asset is chosen, so a failed replacement cannot silently leave the old video active.
-3. Injects into TikTok's main process only.
-4. Wraps each `AVCaptureVideoDataOutput` delegate when TikTok installs it.
-5. Detects the incoming camera width, height, and pixel format.
-6. Creates an AVAssetReader output matching those values.
-7. Rewrites the prerecorded frame timestamp to the live camera callback timestamp.
-8. Calls TikTok's original camera delegate with the replacement buffer.
-9. Places the floating control only when the camera pipeline is active, avoiding message screens.
+The log records delegate installation, source-file visibility, asset-reader failures, target dimensions/pixel format, rejected replacement frames, and replacement-frame counts.
 
-The earlier settings menu, scaling preview, loop control, custom local Music-library track, and relative video-volume control remain in the source. The custom audio track is composed into the reader when available.
-
-## Device logs
-
-Use SSH or a terminal app on the device:
+To collect system logs as well:
 
 ```sh
 log stream --style compact --level debug \\
   --predicate 'eventMessage CONTAINS[c] "PrerecordedLiveUI"'
 ```
 
-Expected evidence for the corrected path:
+## Testing order
 
-```text
-wrapped AVCaptureVideoDataOutput delegate ...
-camera delegate source active target=... fourcc=...
-AVCapture replacement sample #30
-AVCapture replacement sample #60
-```
+1. Install this package and respring/restart injection.
+2. Launch TikTok and enter its camera-based LIVE screen. The floating icon should appear without replacing frames yet.
+3. Open settings and confirm the pipeline says `Safe/off`.
+4. Select a video from Photos or Files.
+5. Open the debug screen and confirm the video was accepted.
+6. Enable the pipeline from settings.
+7. Force-close and relaunch TikTok so the delegate is installed in the selected mode.
+8. Return to LIVE and check the debug screen for `wrapped AVCaptureVideoDataOutput delegate`, `camera delegate source active`, and replacement counts.
 
-These messages prove that the camera delegate is receiving replacement buffers. Verify the final outgoing stream from another account/device; local logs cannot prove what TikTok's server accepted.
-
-## Install
-
-Remove the prior package, then install this version:
-
-```sh
-dpkg -r com.manus.prerecordedliveui
-dpkg -i com.manus.projecttiky-reference-camera_0.2.0-2+debug_iphoneos-arm64.deb
-```
-
-Respring or restart the injection framework, relaunch TikTok, enter the camera-based LIVE screen, and select the video there.
+If TikTok crashes even while the pipeline is `Safe/off`, uninstall this package and capture the device crash report; that indicates an injection/compatibility issue rather than a media-buffer issue.
 
 ## Build
 
@@ -74,4 +52,4 @@ export THEOS=/home/ubuntu/workspace/upstream/theos
 ./build.sh
 ```
 
-Rootless arm64 package, target iOS 15+.
+Rootless arm64 package, iOS 15+.
