@@ -2,6 +2,8 @@
 #import <UIKit/UIKit.h>
 #import <PhotosUI/PhotosUI.h>
 #import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <ReplayKit/ReplayKit.h>
 #import <CoreMedia/CoreMedia.h>
 #import <objc/runtime.h>
@@ -87,21 +89,63 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
     return stored;
 }
 
+static NSString *PRPSharedAudioPath(void) {
+    return @"/var/mobile/Media/PrerecordedLiveUI/selected-audio.m4a";
+}
+
+static BOOL PRPStoreAudioFile(NSURL *sourceURL, NSURL **resultURL, NSError **resultError) {
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"PrerecordedLiveUI"];
+    NSString *privatePath = [dir stringByAppendingPathComponent:@"selected-audio.m4a"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:privatePath error:nil];
+    NSError *error = nil;
+    if (![[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:[NSURL fileURLWithPath:privatePath] error:&error]) {
+        if (resultError) *resultError = error;
+        return NO;
+    }
+    NSString *sharedPath = PRPSharedAudioPath();
+    [[NSFileManager defaultManager] createDirectoryAtPath:[sharedPath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:sharedPath error:nil];
+    if (![[NSFileManager defaultManager] copyItemAtPath:privatePath toPath:sharedPath error:&error]) {
+        if (resultError) *resultError = error;
+        return NO;
+    }
+    if (resultURL) *resultURL = [NSURL fileURLWithPath:privatePath];
+    return YES;
+}
+
 @interface PRPAssetPump : NSObject
 @property(nonatomic, strong) NSURL *url;
+@property(nonatomic, strong) NSURL *audioURL;
 @property(nonatomic, strong) AVAssetReader *reader;
 @property(nonatomic, strong) AVAssetReaderTrackOutput *videoOutput;
 @property(nonatomic, strong) AVAssetReaderOutput *audioOutput;
-- (BOOL)startWithURL:(NSURL *)url;
+- (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL;
 - (CMSampleBufferRef)nextVideoBufferForTime:(CMTime)time;
 - (CMSampleBufferRef)nextAudioBufferForTime:(CMTime)time;
 @end
 
 @implementation PRPAssetPump
 
-- (BOOL)startWithURL:(NSURL *)url {
+- (BOOL)startWithURL:(NSURL *)url audioURL:(NSURL *)audioURL {
     self.url = url;
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+    self.audioURL = audioURL;
+    AVURLAsset *videoAsset = [AVURLAsset URLAssetWithURL:url options:nil];
+    AVAsset *asset = videoAsset;
+    AVAssetTrack *videoTrack = [videoAsset tracksWithMediaType:AVMediaTypeVideo].firstObject;
+    if (audioURL && [[NSFileManager defaultManager] fileExistsAtPath:audioURL.path]) {
+        AVURLAsset *audioAsset = [AVURLAsset URLAssetWithURL:audioURL options:nil];
+        AVAssetTrack *musicTrack = [audioAsset tracksWithMediaType:AVMediaTypeAudio].firstObject;
+        if (videoTrack && musicTrack) {
+            AVMutableComposition *composition = [AVMutableComposition composition];
+            AVMutableCompositionTrack *videoCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+            AVMutableCompositionTrack *audioCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+            [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoAsset.duration) ofTrack:videoTrack atTime:kCMTimeZero error:nil];
+            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioAsset.duration) ofTrack:musicTrack atTime:kCMTimeZero error:nil];
+            asset = composition;
+            NSLog(@"[PrerecordedLiveUI] using selected music track %@", audioURL.path);
+        }
+    }
     NSArray<AVAssetTrack *> *videoTracks = [asset tracksWithMediaType:AVMediaTypeVideo];
     NSArray<AVAssetTrack *> *audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
     if (videoTracks.count == 0) {
@@ -165,7 +209,7 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
     if (!output) return NULL;
     CMSampleBufferRef source = [output copyNextSampleBuffer];
     if (!source && PRPLoopEnabled() && self.reader.status == AVAssetReaderStatusCompleted) {
-        if ([self startWithURL:self.url]) source = [output copyNextSampleBuffer];
+        if ([self startWithURL:self.url audioURL:self.audioURL]) source = [output copyNextSampleBuffer];
     }
     CMSampleBufferRef adjusted = [self copyBuffer:source forTime:time];
     if (source) CFRelease(source);
@@ -265,9 +309,66 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
 }
 @end
 
+@interface PRPPreviewController : AVPlayerViewController
+@end
+
+@implementation PRPPreviewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSURL *url = [NSURL fileURLWithPath:PRPPrivateVideoPath()];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) return;
+    self.player = [AVPlayer playerWithURL:url];
+    if ([PRPScaleMode() isEqualToString:@"fill"]) self.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    else if ([PRPScaleMode() isEqualToString:@"stretch"]) self.videoGravity = AVLayerVideoGravityResize;
+    else self.videoGravity = AVLayerVideoGravityResizeAspect;
+    self.title = [NSString stringWithFormat:@"Preview — %@", PRPScaleMode().capitalizedString];
+    [self.player play];
+}
+@end
+
+@interface PRPMediaPickerDelegate : NSObject <MPMediaPickerControllerDelegate>
+@property(nonatomic, weak) UIViewController *viewController;
+@end
+
+@implementation PRPMediaPickerDelegate
+- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(NSArray<MPMediaItem *> *)mediaItemCollection {
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+    MPMediaItem *item = mediaItemCollection.firstObject;
+    NSURL *assetURL = item.assetURL;
+    if (!assetURL) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Audio Track" message:@"This music item cannot be exported. Apple Music DRM or a cloud-only item may not provide a local asset URL." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [self.viewController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
+    NSString *outputPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"prerecorded-audio-%@.m4a", NSUUID.UUID.UUIDString]];
+    [[NSFileManager defaultManager] removeItemAtPath:outputPath error:nil];
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+    exporter.outputURL = [NSURL fileURLWithPath:outputPath];
+    exporter.outputFileType = AVFileTypeAppleM4A;
+    [exporter exportAsynchronouslyWithCompletionHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = exporter.error;
+            NSURL *storedURL = nil;
+            BOOL stored = exporter.status == AVAssetExportSessionStatusCompleted && PRPStoreAudioFile(exporter.outputURL, &storedURL, &error);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:stored ? @"Audio Track Selected" : @"Audio Track Error" message:stored ? @"The selected music track will replace the video's audio on the next broadcast." : (error.localizedDescription ?: @"The music track could not be exported.") preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+            [self.viewController presentViewController:alert animated:YES completion:nil];
+        });
+    }];
+}
+@end
+
 @interface PRPButtonTarget : NSObject
 @property(nonatomic, weak) UIViewController *viewController;
 - (void)chooseVideo:(UIButton *)sender;
+- (void)chooseAudioTrack;
+- (void)showPreview;
 - (void)dragButton:(UIPanGestureRecognizer *)gesture;
 - (void)showSettings:(UILongPressGestureRecognizer *)gesture;
 - (void)showSettingsForButton:(UIButton *)sender;
@@ -300,6 +401,12 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
             [[NSUserDefaults standardUserDefaults] setFloat:next forKey:kPRPVolumeKey];
             [self showSettingsForButton:sender];
         }]];
+        [sheet addAction:[UIAlertAction actionWithTitle:@"Preview current scaling" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            [self showPreview];
+        }]];
+        [sheet addAction:[UIAlertAction actionWithTitle:@"Choose music audio track" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            [self chooseAudioTrack];
+        }]];
         [sheet addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil]];
         if (sheet.popoverPresentationController) {
             sheet.popoverPresentationController.sourceView = sender;
@@ -307,6 +414,33 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
         }
         [vc presentViewController:sheet animated:YES completion:nil];
     });
+}
+
+- (void)showPreview {
+    UIViewController *vc = self.viewController;
+    if (!vc) return;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:PRPPrivateVideoPath()]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Preview" message:@"Select a prerecorded video first." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [vc presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    PRPPreviewController *preview = [PRPPreviewController new];
+    preview.modalPresentationStyle = UIModalPresentationFullScreen;
+    [vc presentViewController:preview animated:YES completion:nil];
+}
+
+- (void)chooseAudioTrack {
+    UIViewController *vc = self.viewController;
+    if (!vc) return;
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
+    picker.allowsPickingMultipleItems = NO;
+    picker.prompt = @"Choose audio for the prerecorded stream";
+    PRPMediaPickerDelegate *delegate = [PRPMediaPickerDelegate new];
+    delegate.viewController = vc;
+    objc_setAssociatedObject(picker, kPRPPickerDelegateKey, delegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    picker.delegate = delegate;
+    [vc presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)chooseVideo:(UIButton *)sender {
@@ -426,9 +560,11 @@ static void PRPInstallButton(UIViewController *vc) {
     %orig;
     @synchronized ([PRPAssetPump class]) {
         NSURL *url = [NSURL fileURLWithPath:PRPSharedVideoPath()];
+        NSURL *audioURL = [NSURL fileURLWithPath:PRPSharedAudioPath()];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:audioURL.path]) audioURL = nil;
         if ([[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
             gPRPAssetPump = [PRPAssetPump new];
-            if (![gPRPAssetPump startWithURL:url]) gPRPAssetPump = nil;
+            if (![gPRPAssetPump startWithURL:url audioURL:audioURL]) gPRPAssetPump = nil;
         } else {
             NSLog(@"[PrerecordedLiveUI] broadcast started but shared video is missing: %@", url.path);
         }

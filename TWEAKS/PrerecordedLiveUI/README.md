@@ -25,8 +25,12 @@ Long-press the floating icon for **Prerecorded Stream Settings**. The menu persi
 - **Scaling:** cycles Fit, Fill, and Stretch. The chosen mode is passed to the AVAssetReader video output.
 - **Loop:** toggles looping. When enabled, the asset reader restarts at end-of-file; when disabled, the original sample path resumes after the asset ends.
 - **Volume:** cycles 0%, 50%, 100%, 150%, and 200%. The selected value is applied through an AVAudioMix before app-audio buffers are handed to SampleHandler.
+- **Preview current scaling:** opens the selected video in an AVPlayer preview using the current Fit, Fill, or Stretch mode.
+- **Choose music audio track:** opens the device MediaPlayer library and exports a locally available, non-DRM track to `selected-audio.m4a`. That track replaces the video's original audio on the next broadcast.
 
 Settings are applied when the next broadcast starts.
+
+The video volume is independent of the streamer's microphone path, so setting it to 0–50% makes the prerecorded audio quieter relative to the streamer. Automatic ducking that reacts to speech requires microphone RMS/PCM DSP inside the extension and is not claimed by this build.
 
 ## Experimental pipeline behavior
 
