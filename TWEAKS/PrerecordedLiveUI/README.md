@@ -1,6 +1,6 @@
 # PrerecordedLiveUI
 
-This is the first actual UI implementation. It is injected into `com.zhiliaoapp.musically` only. When a visible view controller appears whose class, title, navigation title, or visible labels identify it as LIVE, livestream, room, studio, broadcast, or creator-live, the tweak adds a red `Prerecorded` video button at the top-right safe-area position.
+This is the first actual UI implementation. It is injected into `com.zhiliaoapp.musically` only. When a visible view controller appears whose class, title, navigation title, or visible labels identify it as LIVE, livestream, room, studio, broadcast, or creator-live, the tweak adds a small red circular floating video icon at the top-right safe-area position. The icon is 48×48 points, can be dragged inside the safe area, and remembers its last position.
 
 Tapping the button opens the system Photos video picker, copies the selected movie into:
 

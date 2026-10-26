@@ -89,6 +89,7 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
 @interface PRPButtonTarget : NSObject
 @property(nonatomic, weak) UIViewController *viewController;
 - (void)chooseVideo:(UIButton *)sender;
+- (void)dragButton:(UIPanGestureRecognizer *)gesture;
 @end
 
 @implementation PRPButtonTarget
@@ -108,7 +109,7 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
             return;
         }
         NSLog(@"[PrerecordedLiveUI] selected video cached at %@", url.path);
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video Selected" message:@"The video is ready for the broadcast integration stage." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video Selected" message:@"Saved for the prerecorded broadcast integration. TikTok is still using its normal live source until that integration is enabled." preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
         [vc presentViewController:alert animated:YES completion:nil];
     };
@@ -116,23 +117,44 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
     picker.delegate = delegate;
     [vc presentViewController:picker animated:YES completion:nil];
 }
+
+- (void)dragButton:(UIPanGestureRecognizer *)gesture {
+    UIView *view = gesture.view;
+    UIViewController *vc = self.viewController;
+    if (!view || !vc) return;
+    CGPoint translation = [gesture translationInView:vc.view];
+    view.center = CGPointMake(view.center.x + translation.x, view.center.y + translation.y);
+    [gesture setTranslation:CGPointZero inView:vc.view];
+
+    CGFloat margin = 8.0;
+    UIEdgeInsets safe = vc.view.safeAreaInsets;
+    CGFloat minX = safe.left + margin + view.bounds.size.width / 2.0;
+    CGFloat maxX = vc.view.bounds.size.width - safe.right - margin - view.bounds.size.width / 2.0;
+    CGFloat minY = safe.top + margin + view.bounds.size.height / 2.0;
+    CGFloat maxY = vc.view.bounds.size.height - safe.bottom - margin - view.bounds.size.height / 2.0;
+    view.center = CGPointMake(MIN(MAX(view.center.x, minX), maxX), MIN(MAX(view.center.y, minY), maxY));
+
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [[NSUserDefaults standardUserDefaults] setObject:NSStringFromCGPoint(view.center) forKey:@"PrerecordedLiveUI.buttonCenter"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
 @end
 
 static void PRPInstallButton(UIViewController *vc) {
     if (!vc.viewIfLoaded || !PRPIsLiveController(vc)) return;
     if (objc_getAssociatedObject(vc, kPRPButtonKey)) return;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.translatesAutoresizingMaskIntoConstraints = NO;
     button.accessibilityIdentifier = @"PrerecordedLiveUI.button";
-    [button setTitle:@"Prerecorded" forState:UIControlStateNormal];
     if (@available(iOS 13.0, *)) [button setImage:[UIImage systemImageNamed:@"video.fill"] forState:UIControlStateNormal];
     button.tintColor = UIColor.whiteColor;
-    [button setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     button.backgroundColor = [UIColor colorWithRed:0.85 green:0.05 blue:0.25 alpha:0.95];
-    button.layer.cornerRadius = 18.0;
+    button.frame = CGRectMake(0, 0, 48, 48);
+    button.layer.cornerRadius = 24.0;
+    button.layer.masksToBounds = YES;
+    button.accessibilityLabel = @"Choose prerecorded video";
     if (@available(iOS 15.0, *)) {
-        UIButtonConfiguration *configuration = [UIButtonConfiguration tintedButtonConfiguration];
-        configuration.contentInsets = NSDirectionalEdgeInsetsMake(8, 12, 8, 12);
+        UIButtonConfiguration *configuration = [UIButtonConfiguration plainButtonConfiguration];
         configuration.baseBackgroundColor = [UIColor colorWithRed:0.85 green:0.05 blue:0.25 alpha:0.95];
         configuration.baseForegroundColor = UIColor.whiteColor;
         button.configuration = configuration;
@@ -140,12 +162,14 @@ static void PRPInstallButton(UIViewController *vc) {
     PRPButtonTarget *target = [PRPButtonTarget new];
     target.viewController = vc;
     [button addTarget:target action:@selector(chooseVideo:) forControlEvents:UIControlEventTouchUpInside];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(dragButton:)];
+    [button addGestureRecognizer:pan];
     [vc.view addSubview:button];
-    [NSLayoutConstraint activateConstraints:@[
-        [button.trailingAnchor constraintEqualToAnchor:vc.view.safeAreaLayoutGuide.trailingAnchor constant:-16],
-        [button.topAnchor constraintEqualToAnchor:vc.view.safeAreaLayoutGuide.topAnchor constant:16],
-        [button.heightAnchor constraintGreaterThanOrEqualToConstant:36]
-    ]];
+    CGPoint defaultCenter = CGPointMake(vc.view.bounds.size.width - vc.view.safeAreaInsets.right - 40.0,
+                                        vc.view.safeAreaInsets.top + 40.0);
+    NSString *savedCenter = [[NSUserDefaults standardUserDefaults] stringForKey:@"PrerecordedLiveUI.buttonCenter"];
+    CGPoint center = savedCenter.length ? CGPointFromString(savedCenter) : defaultCenter;
+    button.center = center;
     objc_setAssociatedObject(vc, kPRPButtonKey, button, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(vc, kPRPTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSLog(@"[PrerecordedLiveUI] installed button on %@", NSStringFromClass(vc.class));
