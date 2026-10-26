@@ -1,11 +1,14 @@
 # TikToklookalike-forked
 
-Static-analysis notes for the supplied iOS IPA.
+Public analysis and binary distribution for the iOS IPA supplied by the maintainer.
 
-The archive's main application metadata identifies it as TikTok (`com.zhiliaoapp.musically`, version 39.3.0, build 393020). This repository contains an analysis report, not app source code.
+The main app metadata identifies the package as TikTok (`com.zhiliaoapp.musically`), version 39.3.0 (build 393020). The maintainer states that the app is theirs and has directed public distribution; this repository does not independently verify provenance or distribution rights.
 
-See [ANALYSIS.md](ANALYSIS.md) for archive structure, app metadata, Mach-O encryption indicators, privacy manifests, and limitations.
+- [Download the IPA release (v39.3.0)](https://github.com/perseusV/TikToklookalike-forked/releases/tag/v39.3.0)
+- [Read the static analysis](ANALYSIS.md)
 
-## Distribution and safety note
+The release asset is the supplied IPA without modification. SHA-256: `8b0fcefcb292de833f523395f4976014b300c11eb76cfa93b41baa0ba14b1393`.
 
-The IPA itself is not included in this initial repository revision. Static inspection found a file named `SessionCheck.bundle/private_key.p12` whose contents could not be verified. The IPA also appears to contain a TikTok application bundle, so redistribution rights should be confirmed before publicly sharing the binary. The analysis report does not include any key or certificate contents.
+## Safety note
+
+Static inspection found `Payload/TikTok.app/SessionCheck.bundle/private_key.p12` (1,525 bytes). Its contents could not be verified using an empty password; treat it as potentially sensitive. The report intentionally does not include its contents. This repository contains no source project or editable app code.

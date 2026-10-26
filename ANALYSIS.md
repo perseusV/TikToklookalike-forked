@@ -2,9 +2,9 @@
 
 ## Executive summary
 
-The supplied archive is a compiled iOS application bundle whose main metadata identifies the app as **TikTok**, not as a source project or a separate TikTok-like application. Its bundle identifier is `com.zhiliaoapp.musically`; the bundle reports version `39.3.0` (build `393020`). This report covers static archive inspection only. It does not establish provenance, authorization to redistribute, safety, or runtime behavior.
+The supplied archive is a compiled iOS application bundle whose main metadata identifies the app as **TikTok**. Its bundle identifier is `com.zhiliaoapp.musically`; the bundle reports version `39.3.0` (build `393020`). This report covers static archive inspection only. It does not establish provenance, safety, or runtime behavior.
 
-**Do not publish the IPA as-is without reviewing distribution rights and the embedded `private_key.p12` file described below.** This report does not include the IPA or any key/certificate contents.
+The maintainer states that the app is theirs and has directed public distribution. That statement is not independently verifiable from the IPA. The package also contains a file named `private_key.p12` whose contents could not be inspected; treat it as potentially sensitive.
 
 ## Artifact integrity and identity
 
@@ -59,10 +59,10 @@ The archive contains:
 
 `Payload/TikTok.app/SessionCheck.bundle/private_key.p12` (1,525 bytes)
 
-An OpenSSL check using an empty password could not parse it (`Mac verify error: invalid password?`). Its contents therefore remain unverified. The filename suggests it may contain private-key material, but this inspection did **not** establish what it contains. Treat it as potentially sensitive; do not publish or extract it for public analysis until the owner has independently reviewed it. The report intentionally excludes its contents.
+An OpenSSL check using an empty password could not parse it (`Mac verify error: invalid password?`). Its contents therefore remain unverified. The filename suggests it may contain private-key material, but this inspection did **not** establish what it contains. Treat it as potentially sensitive. The report intentionally excludes its contents.
 
 No `embedded.mobileprovision` file was found. Code-resource signature files are present, but the app's code signature was not cryptographically verified; static inspection does not establish that the decrypted package is installable or signature-valid.
 
-## Limitations and safe handling
+## Limitations
 
-This was static inspection of ZIP structure, plist metadata, Mach-O headers, and privacy manifests. The app was not installed or executed; no dynamic traffic, behavior, malware, or vulnerability assessment was performed. No source project was present in the archive. This report alone does not grant rights to redistribute TikTok software or its bundled components. Keep the binary private unless you have the right to distribute it and have resolved the `private_key.p12` warning.
+This was static inspection of ZIP structure, plist metadata, Mach-O headers, and privacy manifests. The app was not installed or executed; no dynamic traffic, behavior, malware, or vulnerability assessment was performed. No source project was present in the archive. The maintainer's ownership and distribution authorization statement has not been independently verified.
