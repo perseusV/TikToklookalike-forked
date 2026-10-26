@@ -20,6 +20,25 @@ static NSString *PRPPrivateVideoPath(void) {
     return [dir stringByAppendingPathComponent:@"selected-video.mov"];
 }
 
+static NSString * const kPRPScaleModeKey = @"PrerecordedLiveUI.scaleMode";
+static NSString * const kPRPLoopKey = @"PrerecordedLiveUI.loop";
+static NSString * const kPRPVolumeKey = @"PrerecordedLiveUI.volume";
+
+static NSString *PRPScaleMode(void) {
+    NSString *mode = [[NSUserDefaults standardUserDefaults] stringForKey:kPRPScaleModeKey];
+    return mode.length ? mode : @"fit";
+}
+
+static BOOL PRPLoopEnabled(void) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kPRPLoopKey] ? [defaults boolForKey:kPRPLoopKey] : YES;
+}
+
+static float PRPVolume(void) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kPRPVolumeKey] ? MAX(0.0f, MIN(2.0f, [defaults floatForKey:kPRPVolumeKey])) : 1.0f;
+}
+
 static BOOL PRPStoreVideoData(NSData *data, NSURL **resultURL, NSError **resultError) {
     if (data.length == 0) {
         if (resultError) *resultError = [NSError errorWithDomain:@"PrerecordedLiveUI" code:4 userInfo:@{NSLocalizedDescriptionKey: @"The selected video provider returned no data."}];
@@ -72,7 +91,7 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
 @property(nonatomic, strong) NSURL *url;
 @property(nonatomic, strong) AVAssetReader *reader;
 @property(nonatomic, strong) AVAssetReaderTrackOutput *videoOutput;
-@property(nonatomic, strong) AVAssetReaderTrackOutput *audioOutput;
+@property(nonatomic, strong) AVAssetReaderOutput *audioOutput;
 - (BOOL)startWithURL:(NSURL *)url;
 - (CMSampleBufferRef)nextVideoBufferForTime:(CMTime)time;
 - (CMSampleBufferRef)nextAudioBufferForTime:(CMTime)time;
@@ -95,7 +114,14 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
         NSLog(@"[PrerecordedLiveUI] AVAssetReader init failed: %@", error);
         return NO;
     }
-    NSDictionary *videoSettings = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
+    NSString *scalingMode = PRPScaleMode();
+    NSString *avScalingMode = [scalingMode isEqualToString:@"fill"] ? AVVideoScalingModeResizeAspectFill : ([scalingMode isEqualToString:@"stretch"] ? AVVideoScalingModeResize : AVVideoScalingModeResizeAspect);
+    NSDictionary *videoSettings = @{
+        (id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+        AVVideoScalingModeKey: avScalingMode,
+        AVVideoWidthKey: @1280,
+        AVVideoHeightKey: @720
+    };
     self.videoOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTracks.firstObject outputSettings:videoSettings];
     self.videoOutput.alwaysCopiesSampleData = NO;
     if ([self.reader canAddOutput:self.videoOutput]) [self.reader addOutput:self.videoOutput];
@@ -109,12 +135,18 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
             AVSampleRateKey: @44100,
             AVNumberOfChannelsKey: @2
         };
-        self.audioOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:audioTracks.firstObject outputSettings:audioSettings];
+        AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
+        AVMutableAudioMixInputParameters *audioParameters = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTracks.firstObject];
+        [audioParameters setVolume:PRPVolume() atTime:kCMTimeZero];
+        audioMix.inputParameters = @[audioParameters];
+        AVAssetReaderAudioMixOutput *audioOutput = [[AVAssetReaderAudioMixOutput alloc] initWithAudioTracks:audioTracks audioSettings:audioSettings];
+        audioOutput.audioMix = audioMix;
+        self.audioOutput = audioOutput;
         self.audioOutput.alwaysCopiesSampleData = NO;
         if ([self.reader canAddOutput:self.audioOutput]) [self.reader addOutput:self.audioOutput];
     }
     BOOL started = [self.reader startReading];
-    NSLog(@"[PrerecordedLiveUI] asset pump %@ video=%d audio=%d", started ? @"started" : @"failed", self.videoOutput != nil, self.audioOutput != nil);
+    NSLog(@"[PrerecordedLiveUI] asset pump %@ video=%d audio=%d scale=%@ loop=%d volume=%.2f", started ? @"started" : @"failed", self.videoOutput != nil, self.audioOutput != nil, scalingMode, PRPLoopEnabled(), PRPVolume());
     return started;
 }
 
@@ -129,10 +161,10 @@ static BOOL PRPStoreVideoFile(NSURL *sourceURL, NSURL **resultURL, NSError **res
     return status == noErr ? adjusted : (CMSampleBufferRef)CFRetain(source);
 }
 
-- (CMSampleBufferRef)nextFromOutput:(AVAssetReaderTrackOutput *)output forTime:(CMTime)time {
+- (CMSampleBufferRef)nextFromOutput:(AVAssetReaderOutput *)output forTime:(CMTime)time {
     if (!output) return NULL;
     CMSampleBufferRef source = [output copyNextSampleBuffer];
-    if (!source && self.reader.status == AVAssetReaderStatusCompleted) {
+    if (!source && PRPLoopEnabled() && self.reader.status == AVAssetReaderStatusCompleted) {
         if ([self startWithURL:self.url]) source = [output copyNextSampleBuffer];
     }
     CMSampleBufferRef adjusted = [self copyBuffer:source forTime:time];
@@ -237,9 +269,46 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
 @property(nonatomic, weak) UIViewController *viewController;
 - (void)chooseVideo:(UIButton *)sender;
 - (void)dragButton:(UIPanGestureRecognizer *)gesture;
+- (void)showSettings:(UILongPressGestureRecognizer *)gesture;
+- (void)showSettingsForButton:(UIButton *)sender;
 @end
 
 @implementation PRPButtonTarget
+- (void)showSettings:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state != UIGestureRecognizerStateBegan || !self.viewController) return;
+    [self showSettingsForButton:(UIButton *)gesture.view];
+}
+
+- (void)showSettingsForButton:(UIButton *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *vc = self.viewController;
+        if (!vc) return;
+        UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Prerecorded Stream Settings" message:[NSString stringWithFormat:@"Scaling: %@\nLoop: %@\nVolume: %.0f%%", PRPScaleMode().capitalizedString, PRPLoopEnabled() ? @"On" : @"Off", PRPVolume() * 100.0f] preferredStyle:UIAlertControllerStyleActionSheet];
+        [sheet addAction:[UIAlertAction actionWithTitle:@"Scaling: change" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            NSArray *modes = @[@"fit", @"fill", @"stretch"];
+            NSUInteger index = [modes indexOfObject:PRPScaleMode()];
+            [[NSUserDefaults standardUserDefaults] setObject:modes[(index == NSNotFound ? 0 : (index + 1) % modes.count)] forKey:kPRPScaleModeKey];
+            [self showSettingsForButton:sender];
+        }]];
+        [sheet addAction:[UIAlertAction actionWithTitle:PRPLoopEnabled() ? @"Loop: turn off" : @"Loop: turn on" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setBool:!PRPLoopEnabled() forKey:kPRPLoopKey];
+            [self showSettingsForButton:sender];
+        }]];
+        [sheet addAction:[UIAlertAction actionWithTitle:@"Volume: change" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            float next = PRPVolume() + 0.5f;
+            if (next > 2.0f) next = 0.0f;
+            [[NSUserDefaults standardUserDefaults] setFloat:next forKey:kPRPVolumeKey];
+            [self showSettingsForButton:sender];
+        }]];
+        [sheet addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil]];
+        if (sheet.popoverPresentationController) {
+            sheet.popoverPresentationController.sourceView = sender;
+            sheet.popoverPresentationController.sourceRect = sender.bounds;
+        }
+        [vc presentViewController:sheet animated:YES completion:nil];
+    });
+}
+
 - (void)chooseVideo:(UIButton *)sender {
     UIViewController *vc = self.viewController;
     if (!vc) return;
@@ -256,7 +325,7 @@ static UIViewController *PRPVisibleController(UIViewController *vc) {
             return;
         }
         NSLog(@"[PrerecordedLiveUI] selected video cached at %@", url.path);
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video Selected" message:@"Saved for the prerecorded broadcast integration. TikTok is still using its normal live source until that integration is enabled." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video Selected" message:@"Saved for the prerecorded broadcast. Long-press the floating icon for scaling, loop, and volume settings. Settings apply when the next broadcast starts." preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
         [vc presentViewController:alert animated:YES completion:nil];
     };
@@ -335,6 +404,9 @@ static void PRPInstallButton(UIViewController *vc) {
     [button addTarget:target action:@selector(chooseVideo:) forControlEvents:UIControlEventTouchUpInside];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(dragButton:)];
     [button addGestureRecognizer:pan];
+    UILongPressGestureRecognizer *settings = [[UILongPressGestureRecognizer alloc] initWithTarget:target action:@selector(showSettings:)];
+    settings.minimumPressDuration = 0.65;
+    [button addGestureRecognizer:settings];
     [vc.view addSubview:button];
     CGPoint defaultCenter = CGPointMake(vc.view.bounds.size.width - vc.view.safeAreaInsets.right - 40.0,
                                         vc.view.safeAreaInsets.top + 40.0);

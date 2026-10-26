@@ -20,6 +20,14 @@ The floating icon can be dragged inside the safe area and remembers its position
 /var/mobile/Media/PrerecordedLiveUI/selected-video.mov
 ```
 
+Long-press the floating icon for **Prerecorded Stream Settings**. The menu persists:
+
+- **Scaling:** cycles Fit, Fill, and Stretch. The chosen mode is passed to the AVAssetReader video output.
+- **Loop:** toggles looping. When enabled, the asset reader restarts at end-of-file; when disabled, the original sample path resumes after the asset ends.
+- **Volume:** cycles 0%, 50%, 100%, 150%, and 200%. The selected value is applied through an AVAudioMix before app-audio buffers are handed to SampleHandler.
+
+Settings are applied when the next broadcast starts.
+
 ## Experimental pipeline behavior
 
 When the broadcast extension receives `broadcastStartedWithSetupInfo:`, the tweak opens the shared movie with `AVAssetReader`. During `processSampleBuffer:withType:` it attempts to replace video and `RPSampleBufferTypeAudioApp` buffers, preserving the original callback presentation timestamps through `CMSampleBufferCreateCopyWithNewTiming`. The original SampleHandler is then called with the replacement buffer.
